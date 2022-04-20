@@ -20,17 +20,20 @@ import { ProjectService } from "../services/projectService";
 export class ProjectResolver {
   constructor(private projectService: ProjectService) {}
 
+  @Authorized()
   @Query((returns) => [Project])
   async projects() {
     return await this.projectService.getProjects();
   }
 
+  @Authorized()
   @UseMiddleware(isAuthorized)
   @Mutation((returns) => Project)
   async createProject(@Arg("data") data: NewProjectInput): Promise<Project> {
     return this.projectService.createProject(data);
   }
 
+  @Authorized()
   @Mutation((returns) => Project)
   async editProject(@Arg("data") data: EditProjectInput): Promise<Project> {
     return this.projectService.createProject(data);

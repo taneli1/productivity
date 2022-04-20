@@ -4,7 +4,6 @@ import { IProject } from "../../domain/project";
 import { State } from "../../domain/state";
 
 const projectSchema = new Schema<IProject>({
-  id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   userId: { type: mongoose.Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
   hex: { type: String, required: true },

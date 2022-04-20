@@ -1,23 +1,26 @@
 import { Field, ID, InputType, ObjectType } from "type-graphql";
-import { INewUser, IUser } from "../../domain/user";
+import { ICredentials, IUser } from "../../domain/user";
 
 @ObjectType()
 export class User implements IUser {
   @Field((type) => ID)
-  id!: string;
+  _id!: string;
 
   @Field()
   username!: string;
 
   @Field()
-  password!: string;
+  creationDate!: string;
+
+  @Field({ nullable: true })
+  password?: string;
 
   @Field()
-  creationDate!: string;
+  token?: string;
 }
 
 @InputType()
-export class NewUserInput implements INewUser {
+export class UserCredentials implements ICredentials {
   @Field()
   username!: string;
 

@@ -2,19 +2,25 @@ import { Timestamp } from "./types/timestamp";
 import { UserInput } from "./types/userInput";
 
 export interface IUser {
-  id: string;
+  _id: string;
   username: string;
-  password: string;
+  password?: string;
   creationDate: Timestamp;
 }
 
 export interface IUserService {
-  createUser: (params: INewUser) => Promise<IUser>;
+  login: (
+    request: Request,
+    response: Response,
+    params: ICredentials
+  ) => Promise<IUser>;
+
+  createUser: (params: ICredentials) => Promise<IUser>;
   getUserWithId: (id: string) => Promise<IUser>;
   getUserWithName: (username: string) => Promise<IUser>;
 }
 
-export interface INewUser extends UserInput {
+export interface ICredentials extends UserInput {
   username: string;
   password: string;
 }

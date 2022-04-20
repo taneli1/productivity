@@ -4,6 +4,8 @@ import express from "express";
 import db from "./database/db";
 import http from "http";
 import { init } from "./graphql/index";
+import passport from "./auth/passport";
+import { checkAuth } from "./auth/functions";
 
 (async () => {
   try {
@@ -11,11 +13,20 @@ import { init } from "./graphql/index";
 
     const server = new ApolloServer({
       schema: gqlSchema,
+      context: async ({ req, res }) => {
+        const user = await checkAuth(req, res);
+        return {
+          req,
+          res,
+          user,
+        };
+      },
     });
 
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+    app.use(passport.initialize());
 
     await server.start();
     server.applyMiddleware({ app });

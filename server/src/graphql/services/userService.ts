@@ -1,16 +1,34 @@
 import { Service } from "typedi";
-import { INewUser, IUserService } from "../../domain/user";
+import { ICredentials, IUser, IUserService } from "../../domain/user";
 import User from "../../database/models/userModel";
+import { loginUser } from "../../auth/functions";
+import bcrypt from "bcryptjs";
 
 @Service()
 export class UserService implements IUserService {
-  async createUser(params: INewUser) {
+  async login(
+    request: any,
+    response: any,
+    params: ICredentials
+  ): Promise<IUser> {
+    const u = await loginUser(request, response, params);
+    if (!u) {
+      throw new Error("Could not log in");
+    }
+
+    delete u.password;
+    return u;
+  }
+
+  async createUser(params: ICredentials) {
+    const hash = await bcrypt.hash(params.password, 12);
     const res = await User.create({
       username: params.username,
-      password: params.password,
+      password: hash,
       creationDate: Date.now().toString(),
     });
 
+    delete res.password;
     return res;
   }
 
@@ -19,6 +37,7 @@ export class UserService implements IUserService {
     if (!u) {
       throw new Error("User with this id does not exist");
     }
+    delete u.password;
     return u;
   }
 
@@ -27,6 +46,7 @@ export class UserService implements IUserService {
     if (!u) {
       throw new Error("User with this username does not exist");
     }
+    delete u.password;
     return u;
   }
 }
