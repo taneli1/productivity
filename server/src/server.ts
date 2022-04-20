@@ -1,19 +1,16 @@
+import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
-import db from "./utils/db";
-import https from "https";
+import db from "./database/db";
+import http from "http";
+import { init } from "./graphql/index";
 
 (async () => {
   try {
+    const gqlSchema = await init();
+
     const server = new ApolloServer({
-      context: async ({ req, res }) => {
-        if (req) {
-          return {
-            req,
-            res,
-          };
-        }
-      },
+      schema: gqlSchema,
     });
 
     const app = express();
@@ -21,13 +18,12 @@ import https from "https";
     app.use(express.urlencoded({ extended: true }));
 
     await server.start();
-
     server.applyMiddleware({ app });
 
     db.on("connected", () => {
-      https
+      http
         .createServer({}, app)
-        .listen({ port: process.env.PORT || 443 }, () =>
+        .listen({ port: process.env.PORT || 80 }, () =>
           console.log(`🚀 Server ready`)
         );
     });
