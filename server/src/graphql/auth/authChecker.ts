@@ -1,5 +1,9 @@
+// Contains different checks to confirm needed permissions for
+// different operations a user tries to perform.
+
 import { AuthenticationError } from "apollo-server-express";
 import { AuthChecker, MiddlewareFn } from "type-graphql";
+import { isLabelOwner, isProjectOwner } from "../../database/functions/utils";
 import { CustomContext } from "./context";
 
 export const isAuthenticated: AuthChecker<CustomContext> = async ({
@@ -11,11 +15,30 @@ export const isAuthenticated: AuthChecker<CustomContext> = async ({
   return true;
 };
 
-export const checkIsProjectOwner: MiddlewareFn<CustomContext> = async (
+export const confirmIsProjectOwner: MiddlewareFn<CustomContext> = async (
   { args, context },
   next
 ) => {
-  console.log("CONTEXT:", context);
-  console.log("args:", args);
+  const userId = context.user._id;
+  const projectId = args.data.projectId; // Todo
+
+  if (!(await isProjectOwner(userId, projectId))) {
+    throw new Error("You do not own this project.");
+  }
+
+  return next();
+};
+
+export const confirmIsLabelOwner: MiddlewareFn<CustomContext> = async (
+  { args, context },
+  next
+) => {
+  const userId = context.user._id;
+  const labelId = args.id;
+
+  if (!(await isLabelOwner(userId, labelId))) {
+    throw new Error("You do not own this label.");
+  }
+
   return next();
 };

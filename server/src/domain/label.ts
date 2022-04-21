@@ -2,15 +2,16 @@ import { UserInput } from "./types/userInput";
 
 export interface ILabel {
   _id: string;
-  accountId: string;
+  userId: string;
   name: string;
   hex: string;
 }
 
 export interface ILabelService {
   getLabel: (id: string) => Promise<ILabel>;
+  getUserLabels: (userId: string) => Promise<ILabel[]>;
 
-  createLabel: (params: INewLabel) => Promise<ILabel>;
+  createLabel: (userId: string, params: INewLabel) => Promise<ILabel>;
   deleteLabel: (id: string) => Promise<ILabel>;
 }
 

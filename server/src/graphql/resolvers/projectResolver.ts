@@ -8,7 +8,7 @@ import {
   UseMiddleware,
 } from "type-graphql";
 import { Service } from "typedi";
-import { checkIsProjectOwner } from "../auth/authChecker";
+import { confirmIsProjectOwner } from "../auth/authChecker";
 import { CustomContext } from "../auth/context";
 import {
   EditProjectInput,
@@ -38,7 +38,7 @@ export class ProjectResolver {
   }
 
   @Authorized()
-  @UseMiddleware(checkIsProjectOwner)
+  @UseMiddleware(confirmIsProjectOwner)
   @Mutation((returns) => Project)
   async editProject(@Arg("data") data: EditProjectInput): Promise<Project> {
     return this.projectService.editProject(data);

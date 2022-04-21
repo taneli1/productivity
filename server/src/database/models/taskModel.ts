@@ -11,6 +11,7 @@ const taskSchema = new Schema<ITask>({
     default: TaskState.TODO,
     required: true,
   },
+  labels: [mongoose.Schema.Types.ObjectId],
   projectId: { type: mongoose.Schema.Types.ObjectId, required: true },
   creationTs: { type: String, required: true },
   completionTs: { type: String, required: true },
