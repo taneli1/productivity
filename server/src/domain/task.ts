@@ -14,19 +14,22 @@ export interface ITask {
 }
 
 export interface ITaskService {
-  getTasksForProject: () => Promise<ITask[]>;
+  getTasksForProject: (projectId: string) => Promise<ITask[]>;
 
-  createTask: () => Promise<ITask>;
-  editTask: () => Promise<ITask>;
-  deleteTask: () => Promise<ITask>;
+  createTask: (params: INewTask) => Promise<ITask>;
+  editTask: (params: IEditTask) => Promise<ITask>;
+
+  deleteTask: (taskId: string) => Promise<ITask>;
 }
 
 export interface INewTask extends UserInput {
   name: string;
   projectId: string;
+  labels: string[];
 }
 
 export interface IEditTask extends UserInput {
+  taskId: string;
   name: string;
   state: TaskState;
 }
