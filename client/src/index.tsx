@@ -1,8 +1,8 @@
-import "bootstrap/dist/css/bootstrap.css";
+import "./custom.scss";
 import { render } from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Router from "./routes/router";
+import { Router } from "./routes/router";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const rootElement = document.getElementById("root");
