@@ -5,7 +5,7 @@ import { State } from "../../domain/state";
 @ObjectType()
 export class Project implements IProject {
   @Field((type) => ID)
-  id!: string;
+  _id!: string;
 
   @Field((type) => ID)
   userId!: string;
@@ -35,7 +35,7 @@ export class NewProjectInput implements INewProject {
 @InputType()
 export class EditProjectInput implements IEditProject {
   @Field()
-  id!: string;
+  projectId!: string;
 
   @Field()
   name!: string;

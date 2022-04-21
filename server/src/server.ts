@@ -6,6 +6,8 @@ import http from "http";
 import { init } from "./graphql/index";
 import passport from "./auth/passport";
 import { checkAuth } from "./auth/functions";
+import { CustomContext } from "./graphql/auth/context";
+import { IUser } from "./domain/user";
 
 (async () => {
   try {
@@ -13,8 +15,8 @@ import { checkAuth } from "./auth/functions";
 
     const server = new ApolloServer({
       schema: gqlSchema,
-      context: async ({ req, res }) => {
-        const user = await checkAuth(req, res);
+      context: async ({ req, res }): Promise<CustomContext> => {
+        const user: IUser = (await checkAuth(req, res)) as any;
         return {
           req,
           res,

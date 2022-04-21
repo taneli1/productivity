@@ -3,7 +3,7 @@ import { UserInput } from "./types/userInput";
 import { Timestamp } from "./types/timestamp";
 
 export interface IProject {
-  id: string;
+  _id: string;
   userId: string;
   name: string;
   hex: string;
@@ -12,9 +12,9 @@ export interface IProject {
 }
 
 export interface IProjectService {
-  getProjects: () => Promise<IProject[]>;
+  getProjects: (userId: string) => Promise<IProject[]>;
 
-  createProject: (params: INewProject) => Promise<IProject>;
+  createProject: (userId: string, params: INewProject) => Promise<IProject>;
   editProject: (params: IEditProject) => Promise<IProject>;
 }
 
@@ -24,7 +24,7 @@ export interface INewProject extends UserInput {
 }
 
 export interface IEditProject extends UserInput {
-  id: string;
+  projectId: string;
   name: string;
   hex: string;
   state: State;

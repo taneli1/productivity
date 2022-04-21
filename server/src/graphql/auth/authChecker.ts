@@ -1,10 +1,11 @@
 import { AuthenticationError } from "apollo-server-express";
 import { AuthChecker, MiddlewareFn } from "type-graphql";
+import { CustomContext } from "./context";
 
 /**
  * Check that the user is logged in.
  */
-export const isAuthenticated: AuthChecker<any> = async ({
+export const isAuthenticated: AuthChecker<CustomContext> = async ({
   root,
   args,
   context,
@@ -18,9 +19,12 @@ export const isAuthenticated: AuthChecker<any> = async ({
 };
 
 /**
- * Check that the user is authorized to edit the content being accessed.
+ * Check that the user is authorized to edit the project being accessed.
  */
-export const isAuthorized: MiddlewareFn = async ({ args, context }, next) => {
+export const checkIsProjectOwner: MiddlewareFn<CustomContext> = async (
+  { args, context },
+  next
+) => {
   console.log("CONTEXT:", context);
   console.log("args:", args);
   return next();

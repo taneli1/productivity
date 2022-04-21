@@ -12,9 +12,6 @@ export class User implements IUser {
   @Field()
   creationDate!: string;
 
-  @Field({ nullable: true })
-  password?: string;
-
   @Field()
   token?: string;
 }

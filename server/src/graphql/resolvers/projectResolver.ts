@@ -1,13 +1,15 @@
 import {
   Arg,
   Authorized,
+  Ctx,
   Mutation,
   Query,
   Resolver,
   UseMiddleware,
 } from "type-graphql";
 import { Service } from "typedi";
-import { isAuthorized } from "../auth/authChecker";
+import { checkIsProjectOwner } from "../auth/authChecker";
+import { CustomContext } from "../auth/context";
 import {
   EditProjectInput,
   NewProjectInput,
@@ -22,20 +24,23 @@ export class ProjectResolver {
 
   @Authorized()
   @Query((returns) => [Project])
-  async projects() {
-    return await this.projectService.getProjects();
+  async projects(@Ctx() ctx: CustomContext) {
+    return await this.projectService.getProjects(ctx.user._id);
   }
 
   @Authorized()
-  @UseMiddleware(isAuthorized)
   @Mutation((returns) => Project)
-  async createProject(@Arg("data") data: NewProjectInput): Promise<Project> {
-    return this.projectService.createProject(data);
+  async createProject(
+    @Arg("data") data: NewProjectInput,
+    @Ctx() ctx: CustomContext
+  ): Promise<Project> {
+    return this.projectService.createProject(ctx.user._id, data);
   }
 
   @Authorized()
+  @UseMiddleware(checkIsProjectOwner)
   @Mutation((returns) => Project)
   async editProject(@Arg("data") data: EditProjectInput): Promise<Project> {
-    return this.projectService.createProject(data);
+    return this.projectService.editProject(data);
   }
 }

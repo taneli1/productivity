@@ -1,6 +1,7 @@
 import { Context } from "apollo-server-core";
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { Service } from "typedi";
+import { CustomContext } from "../auth/context";
 import { UserCredentials, User } from "../schemas/userSchema";
 import { UserService } from "../services/userService";
 
@@ -12,7 +13,7 @@ export class UserResolver {
   @Query((returns) => User)
   async login(
     @Arg("credentials") credentials: UserCredentials,
-    @Ctx() ctx: any
+    @Ctx() ctx: CustomContext
   ) {
     return await this.userService.login(ctx.req, ctx.res, credentials);
   }
