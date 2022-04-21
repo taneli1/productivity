@@ -1,4 +1,4 @@
-import { State } from "./state";
+import { ProjectState } from "./state";
 import { UserInput } from "./types/userInput";
 import { Timestamp } from "./types/timestamp";
 
@@ -7,7 +7,7 @@ export interface IProject {
   userId: string;
   name: string;
   hex: string;
-  state: State;
+  state: ProjectState;
   creationDate: Timestamp;
 }
 
@@ -27,5 +27,5 @@ export interface IEditProject extends UserInput {
   projectId: string;
   name: string;
   hex: string;
-  state: State;
+  state: ProjectState;
 }

@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import { IUser } from "../../domain/user";
-import mongoose from "mongoose";
 
 const userSchema = new Schema<IUser>({
   username: { type: String, required: true, unique: true },

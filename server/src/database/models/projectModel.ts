@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import mongoose from "mongoose";
 import { IProject } from "../../domain/project";
-import { State } from "../../domain/state";
+import { ProjectState } from "../../domain/state";
 
 const projectSchema = new Schema<IProject>({
   userId: { type: mongoose.Schema.Types.ObjectId, required: true },
@@ -10,8 +10,8 @@ const projectSchema = new Schema<IProject>({
   creationDate: { type: String, required: true },
   state: {
     type: String,
-    enum: Object.values(State),
-    default: State.ONGOING,
+    enum: Object.values(ProjectState),
+    default: ProjectState.ONGOING,
     required: true,
   },
 });

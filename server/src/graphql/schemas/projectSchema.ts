@@ -1,6 +1,6 @@
 import { Field, ID, InputType, ObjectType } from "type-graphql";
 import { IEditProject, INewProject, IProject } from "../../domain/project";
-import { State } from "../../domain/state";
+import { ProjectState } from "../../domain/state";
 
 @ObjectType()
 export class Project implements IProject {
@@ -17,7 +17,7 @@ export class Project implements IProject {
   hex!: string;
 
   @Field()
-  state!: State;
+  state!: ProjectState;
 
   @Field()
   creationDate!: string;
@@ -44,5 +44,5 @@ export class EditProjectInput implements IEditProject {
   hex!: string;
 
   @Field()
-  state!: State;
+  state!: ProjectState;
 }

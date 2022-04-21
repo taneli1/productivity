@@ -6,7 +6,7 @@ import {
   IProjectService,
 } from "../../domain/project";
 import Project from "../../database/models/projectModel";
-import { State } from "../../domain/state";
+import { ProjectState } from "../../domain/state";
 
 @Service()
 export class ProjectService implements IProjectService {
@@ -25,7 +25,7 @@ export class ProjectService implements IProjectService {
 
   async editProject(params: IEditProject): Promise<IProject> {
     // Mongoose does not validate enums on update query for some reason, check manually
-    const validStates = Object.values(State);
+    const validStates = Object.values(ProjectState);
     if (!validStates.includes(params.state)) {
       throw new Error("Project state is not valid");
     }
