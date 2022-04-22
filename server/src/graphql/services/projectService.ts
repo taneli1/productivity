@@ -11,7 +11,7 @@ import { ProjectState } from "../../domain/state";
 @Service()
 export class ProjectService implements IProjectService {
   async getProjects(userId: string) {
-    return await Project.find({ userId: userId });
+    return await Project.find({ userId: userId }).lean();
   }
 
   async createProject(userId: string, params: INewProject): Promise<IProject> {

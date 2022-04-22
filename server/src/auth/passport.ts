@@ -39,7 +39,6 @@ passport.use(
     },
     async (jwtPayload, done) => {
       try {
-        console.log("HERE", jwtPayload);
         const user = await User.findById(jwtPayload._id).lean();
         if (!user) {
           return done(null, false);

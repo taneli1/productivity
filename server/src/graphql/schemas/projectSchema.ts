@@ -1,6 +1,7 @@
 import { Field, ID, InputType, ObjectType } from "type-graphql";
 import { IEditProject, INewProject, IProject } from "../../domain/project";
 import { ProjectState } from "../../domain/state";
+import { Task } from "./taskSchema";
 
 @ObjectType()
 export class Project implements IProject {
@@ -21,6 +22,9 @@ export class Project implements IProject {
 
   @Field()
   creationDate!: string;
+
+  @Field((type) => [Task], { nullable: true })
+  tasks!: Task[];
 }
 
 @InputType()

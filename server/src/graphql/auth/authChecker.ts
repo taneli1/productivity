@@ -17,13 +17,31 @@ export const confirmIsProjectOwner: MiddlewareFn<CustomContext> = async (
   next
 ) => {
   const userId = context.user._id;
-  const projectId = args.data.projectId || args.projectId;
+  let projectId = resolveProjectId(args);
 
   if (!(await isProjectOwner(userId, projectId))) {
     throw new Error("You do not own this project.");
   }
 
   return next();
+};
+
+const resolveProjectId = (args: any): string => {
+  let projectId = args.data?.projectId;
+
+  if (projectId === undefined) {
+    projectId = args.projectId;
+  }
+
+  if (projectId === undefined) {
+    projectId = args.id;
+  }
+
+  if (projectId === undefined) {
+    throw new Error("Could not find project id from arguments");
+  }
+
+  return projectId;
 };
 
 export const confirmIsLabelOwner: MiddlewareFn<CustomContext> = async (
