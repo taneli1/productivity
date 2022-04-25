@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../data/hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { login } = useAuth();
+  const { login, user } = useAuth();
+
+  React.useEffect(() => {
+    if (user?.data) {
+      navigate("/home");
+    }
+  }, [navigate, user]);
 
   const onSubmit = () => {
-    login(username, password);
-    navigate("/home");
+    login({ username, password });
   };
 
   const passwordChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,16 +26,6 @@ const Login = () => {
   const usernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
   };
-
-  const [matches, setMatches] = useState(
-    window.matchMedia("(min-width: 768px)").matches
-  );
-
-  useEffect(() => {
-    window
-      .matchMedia("(min-width: 768px)")
-      .addEventListener("change", (e) => setMatches(e.matches));
-  }, []);
 
   return (
     <form

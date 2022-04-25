@@ -1,19 +1,14 @@
-import React from "react";
+import { useUser } from "./../hooks/useUser";
 import AuthContext from "./authContext";
 
 const useAuth = () => {
-  const [user, setUser] = React.useState<boolean | null>(null);
+  const { user, login, logout } = useUser();
+
 
   return {
     user,
-    login(username: string, password: string) {
-      setUser(true);
-    },
-    logout() {
-      return new Promise((res) => {
-        setUser(null);
-      });
-    },
+    login,
+    logout,
   };
 };
 

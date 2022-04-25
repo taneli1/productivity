@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "../App";
+import App from "../../App";
+import { AuthProvider } from "../../data/context/authProvider";
 import { RequireAuth } from "../components/requireAuth";
-import { AuthProvider } from "../context/authProvider";
 import Expenses from "../pages/expenses";
 import { Home } from "../pages/home";
 import Invoice from "../pages/invoice";
@@ -22,7 +22,7 @@ export const Router = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={wrapAuth(<Register />)} />
           <Route path="/" element={wrapAuth(<App />)}>
             <Route path="home" element={wrapAuth(<Home />)} />
             <Route path="overview" element={wrapAuth(<Overview />)} />
