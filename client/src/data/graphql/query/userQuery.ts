@@ -8,3 +8,11 @@ export const queryLogin = gql`
     }
   }
 `;
+
+export const queryRegister = gql`
+  mutation QueryRegister($credentials: UserCredentials!) {
+    registerUser(credentials: $credentials) {
+      username
+    }
+  }
+`;

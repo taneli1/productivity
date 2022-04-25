@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
 import { getClient } from "../graphql/graphql";
-import { queryLogin } from "../graphql/query/userQuery";
+import { queryLogin, queryRegister } from "../graphql/query/userQuery";
 import { Credentials } from "../model/credentials";
 import { IUser } from "../model/user";
 import { Result } from "../result";
@@ -27,8 +27,27 @@ export const useUser = () => {
     }
   };
 
+  const register = async (credentials: Credentials) => {
+    console.log("REGISTER");
+    const client = getClient(null);
+    const query = queryRegister;
+    const params = {
+      credentials: credentials,
+    };
+
+    try {
+      const res = await client.request(query, params);
+      const data: IUser = res.registerUser;
+      if (data.username) {
+        login(credentials);
+      } else throw new Error("Failed to register user");
+    } catch (error) {
+      console.log("Failed to register:", error);
+      setUserResult(Result.error<IUser>());
+    }
+  };
+
   const logout = async () => {
-    console.log("logout");
     Cookies.remove("token");
     loadFromCookie();
   };
@@ -56,9 +75,10 @@ export const useUser = () => {
     }
   };
 
+  // Load user data from cookie when this hook is initialized.
   React.useEffect(() => {
     loadFromCookie();
   }, []);
 
-  return { user: userResult, login, logout };
+  return { user: userResult, login, logout, register };
 };

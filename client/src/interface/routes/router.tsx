@@ -10,7 +10,6 @@ import Invoices from "../pages/invoices";
 import Login from "../pages/login";
 import { Overview } from "../pages/overview";
 import { Projects } from "../pages/projects";
-import Register from "../pages/register";
 
 const wrapAuth = (children: JSX.Element) => {
   return <RequireAuth>{children}</RequireAuth>;
@@ -22,7 +21,6 @@ export const Router = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={wrapAuth(<Register />)} />
           <Route path="/" element={wrapAuth(<App />)}>
             <Route path="home" element={wrapAuth(<Home />)} />
             <Route path="overview" element={wrapAuth(<Overview />)} />

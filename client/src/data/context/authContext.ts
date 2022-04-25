@@ -6,12 +6,14 @@ import { Result } from "../result";
 interface IAuthContext {
   user: Result<IUser> | null;
   login: (credentials: Credentials) => Promise<void>;
+  register: (credentials: Credentials) => Promise<void>;
   logout: () => Promise<void>;
 }
 
 const defaultState: IAuthContext = {
   user: null,
   login: async (credentials: Credentials) => {},
+  register: async (credentials: Credentials) => {},
   logout: async () => {},
 };
 

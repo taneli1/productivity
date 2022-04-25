@@ -1,13 +1,14 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../data/hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [isRegisterForm, setIsRegisterForm] = React.useState(false);
   const [username, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const { login, user } = useAuth();
+  const { login, user, register } = useAuth();
 
   React.useEffect(() => {
     if (user?.data) {
@@ -16,7 +17,13 @@ const Login = () => {
   }, [navigate, user]);
 
   const onSubmit = () => {
-    login({ username, password });
+    const credentials = { username, password };
+
+    if (isRegisterForm) {
+      register(credentials);
+    } else {
+      login(credentials);
+    }
   };
 
   const passwordChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +32,11 @@ const Login = () => {
 
   const usernameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
+  };
+
+  const changeForm = (e: any) => {
+    e.preventDefault();
+    setIsRegisterForm(!isRegisterForm);
   };
 
   return (
@@ -39,7 +51,9 @@ const Login = () => {
       }}
       className="container card px-5 py-4"
     >
-      <h2 className="pb-5 text-center">Login</h2>
+      <h2 className="pb-5 text-center">
+        {isRegisterForm ? "Register" : "Login"}
+      </h2>
       <div className="form-outline mb-2">
         <input
           value={username}
@@ -69,15 +83,15 @@ const Login = () => {
         type="button"
         className="btn btn-primary btn-block mb-4"
       >
-        Login
+        {isRegisterForm ? "Create account" : "Login"}
       </button>
 
       <div className="text-center">
         <p>
-          Not a member?
-          <Link className="nav-link" to="/register">
-            Register
-          </Link>
+          {isRegisterForm ? "Have an account?" : "No account?"}
+          <button className="btn btn-link" onClick={changeForm}>
+            {isRegisterForm ? "Login" : "Create one"}
+          </button>
         </p>
       </div>
     </form>

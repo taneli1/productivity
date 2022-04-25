@@ -2,13 +2,13 @@ import { useUser } from "./../hooks/useUser";
 import AuthContext from "./authContext";
 
 const useAuth = () => {
-  const { user, login, logout } = useUser();
-
+  const { user, login, logout, register } = useUser();
 
   return {
     user,
     login,
     logout,
+    register,
   };
 };
 
