@@ -1,22 +1,20 @@
 import React from "react";
 import { IProject } from "../../data/model/project";
+import { Result } from "../../data/result";
+import { ProjectCard } from "./projectCard";
 
 interface ProjectListProps {
-  data: IProject[];
+  projects: Result<IProject[]>;
   onProjectClick: (projectId: string) => void;
 }
 
 export const ProjectList: React.FunctionComponent<ProjectListProps> = ({
-  data,
+  projects,
   onProjectClick,
 }) => {
-  const projects = data.map((project) => {
-    return (
-      <li onClick={() => onProjectClick(project._id)} key={project._id}>
-        {project.name}
-      </li>
-    );
-  });
+  const list = projects.data?.map((project) => (
+    <ProjectCard project={project} onClick={onProjectClick} />
+  ));
 
-  return <ul>{projects}</ul>;
+  return <div className="row justify-content-center pt-5">{list}</div>;
 };
