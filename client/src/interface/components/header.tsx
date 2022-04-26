@@ -1,9 +1,9 @@
 import React from "react";
 
 interface HeaderProps {
-  text: string;
+  text?: string;
 }
 
 export const Header: React.FunctionComponent<HeaderProps> = ({ text }) => {
-  return <h3>{text}</h3>;
+  return <h3 className="header-title">{text}</h3>;
 };

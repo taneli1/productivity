@@ -13,7 +13,7 @@ export const ProjectList: React.FunctionComponent<ProjectListProps> = ({
   onProjectClick,
 }) => {
   const list = projects.data?.map((project) => (
-    <ProjectCard project={project} onClick={onProjectClick} />
+    <ProjectCard key={project._id} project={project} onClick={onProjectClick} />
   ));
 
   return <div className="row justify-content-center pt-5">{list}</div>;

@@ -29,4 +29,20 @@ export class Result<T> {
   static idle<T>() {
     return new Result<T>(null, Status.Idle);
   }
+
+  isLoading(): boolean {
+    return this.status === Status.Loading;
+  }
+
+  isSuccess(): boolean {
+    return this.status === Status.Ok;
+  }
+
+  isError(): boolean {
+    return this.status === Status.Error;
+  }
+
+  isIdle(): boolean {
+    return this.status === Status.Idle;
+  }
 }

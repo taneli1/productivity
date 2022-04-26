@@ -3,12 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "../../App";
 import { AuthProvider } from "../../data/context/authProvider";
 import { RequireAuth } from "../components/requireAuth";
-import Expenses from "../pages/expenses";
 import { Home } from "../pages/home";
-import Invoice from "../pages/invoice";
-import Invoices from "../pages/invoices";
 import Login from "../pages/login";
 import { Overview } from "../pages/overview";
+import { Project } from "../pages/project";
 import { Projects } from "../pages/projects";
 
 const wrapAuth = (children: JSX.Element) => {
@@ -24,19 +22,11 @@ export const Router = () => {
           <Route path="/" element={wrapAuth(<App />)}>
             <Route path="home" element={wrapAuth(<Home />)} />
             <Route path="overview" element={wrapAuth(<Overview />)} />
-            <Route path="projects" element={wrapAuth(<Projects />)} />
-            <Route path="expenses" element={wrapAuth(<Expenses />)} />
-            <Route path="invoices" element={wrapAuth(<Invoices />)}>
-              <Route
-                index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select an invoice</p>
-                  </main>
-                }
-              />
-              <Route path=":invoiceId" element={<Invoice />} />
+            <Route path="projects">
+              <Route index element={wrapAuth(<Projects />)} />
+              <Route path=":projectId" element={wrapAuth(<Project />)} />
             </Route>
+
             <Route
               path="*"
               element={

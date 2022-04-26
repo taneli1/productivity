@@ -1,5 +1,73 @@
 $theme-colors: (
-  "primary": rgba(57, 157, 53, 0.301),
+  "primary": rgba(57, 157, 53, 1),
 );
+
+/* Utility stuff */
+.hover-op:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.centered-page {
+  height: 100vh; /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered {
+  height: 100%; /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Elements */
+div .colored-circle {
+  display: inline-block;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid rgba(57, 157, 53, 1);
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+/* Font */
+
+@font-face {
+  font-family: "Poppins";
+  src: url(./assets/fonts/Poppins/Poppins-Regular.ttf) format("opentype");
+  font-display: swap;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.header-title {
+  font-family: "Montserrat";
+}
+
+.pop {
+  font-family: "Poppins";
+}
 
 @import "~bootstrap/scss/bootstrap.scss";
