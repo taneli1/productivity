@@ -10,3 +10,10 @@ export const str_new_project = "New project";
 export const str_input_project_name = "Project name";
 export const str_input_project_hex = "Project color";
 export const str_project_created = "Successfully created project";
+
+export const str_overview = "Open overview";
+export const str_manage = "Manage project";
+
+export const str_tasks_title = "Tasks";
+export const str_new_task = "New task";
+export const str_no_tasks = "Project has no tasks. Create one to get started.";

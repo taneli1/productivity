@@ -44,7 +44,17 @@ export const NewProject: React.FunctionComponent<NewProjectProps> = ({
 
   return (
     <>
-      <Button text={str_new_project} onClick={handleShow} />
+      <Button text={str_new_project} onClick={handleShow}>
+        <svg
+          style={{ width: 24, height: 24, marginRight: 6 }}
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+          />
+        </svg>
+      </Button>
 
       <Modal
         show={show}

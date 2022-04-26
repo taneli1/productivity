@@ -4,7 +4,7 @@ $theme-colors: (
 
 /* Utility stuff */
 .hover-op:hover {
-  opacity: 0.5;
+  opacity: 0.7;
   cursor: pointer;
 }
 
@@ -26,8 +26,8 @@ $theme-colors: (
 div .colored-circle {
   display: inline-block;
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
 }
 
 @keyframes spinner {
