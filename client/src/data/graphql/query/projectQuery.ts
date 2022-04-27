@@ -21,6 +21,7 @@ export const queryProjectData = gql`
       hex
       tasks {
         _id
+        completionTs
         name
         state
         labels {

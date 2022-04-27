@@ -6,6 +6,7 @@ import {
   str_input_project_hex_edit,
   str_input_project_name,
   str_manage,
+  str_ok_delete,
   str_save_changes,
 } from "../../assets/strings";
 import { IProject } from "../../data/model/project";
@@ -31,6 +32,7 @@ export const ManageProject: React.FunctionComponent<MangageProjectProps> = ({
   const [name, setName] = useState(project.name);
   const [state, setState] = useState(project.state);
   const [show, setShow] = useState(false);
+  const [deleteConf, setDeleteConf] = useState(false);
 
   const handleClose = () => {
     setShow(false);
@@ -109,51 +111,49 @@ export const ManageProject: React.FunctionComponent<MangageProjectProps> = ({
         </Modal.Body>
 
         <Modal.Footer className="d-flex justify-content-between">
-          {/* {projectCreationRes.isLoading() && (
-            <div className="loading-spinner"></div>
-          )}
+          <div className="flex-fill">
+            {!deleteConf ? (
+              <Button
+                enabled={name.length > 1}
+                text={str_delete_project}
+                onClick={() => setDeleteConf(true)}
+                color={"#E53A3A"}
+              />
+            ) : (
+              <div className="col">
+                <p className="centered">
+                  Are you sure? This cannot be reverted.
+                </p>
+                <div className="d-flex centered">
+                  <button
+                    className="btn btn-default"
+                    onClick={() => setDeleteConf(false)}
+                  >
+                    {str_cancel}
+                  </button>
+                  <Button
+                    enabled={name.length > 1}
+                    text={str_ok_delete}
+                    onClick={onDelete}
+                    color={"#E53A3A"}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
 
-          {projectCreationRes.isError() && <p className="pop">{str_error}</p>}
-          {projectCreationRes.isIdle() && (
-            <>
+          {!deleteConf && (
+            <div className="d-flex">
               <button className="btn btn-default" onClick={handleClose}>
                 {str_cancel}
               </button>
               <Button
-                enabled={name.length > 1 && color !== "#fff"}
-                text={str_create}
-                onClick={submitProject}
+                enabled={name.length > 1}
+                text={str_save_changes}
+                onClick={handleSubmit}
               />
-            </>
+            </div>
           )}
-
-          {projectCreationRes.isSuccess() && (
-            <>
-              <p className="pop">{str_project_created}</p>
-              <button className="btn btn-secondary" onClick={handleClose}>
-                {str_close_modal}
-              </button>
-            </>
-          )} */}
-
-          <div>
-            <Button
-              enabled={name.length > 1}
-              text={str_delete_project}
-              onClick={onDelete}
-              color={"#E53A3A"}
-            />
-          </div>
-          <div className="d-flex">
-            <button className="btn btn-default" onClick={handleClose}>
-              {str_cancel}
-            </button>
-            <Button
-              enabled={name.length > 1}
-              text={str_save_changes}
-              onClick={handleSubmit}
-            />
-          </div>
         </Modal.Footer>
       </Modal>
     </>

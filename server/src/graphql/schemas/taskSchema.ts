@@ -25,7 +25,7 @@ export class Task implements ITask {
   @Field()
   creationTs!: Timestamp;
 
-  @Field()
+  @Field({ nullable: true })
   completionTs!: Timestamp;
 }
 

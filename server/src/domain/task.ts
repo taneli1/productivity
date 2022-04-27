@@ -20,7 +20,7 @@ export interface ITaskService {
   createTask: (params: INewTask) => Promise<ITask>;
   editTask: (params: IEditTask) => Promise<ITask>;
 
-  deleteTask: (taskId: string) => Promise<ITask>;
+  deleteTask: (projectId: string, taskId: string) => Promise<ITask>;
 }
 
 export interface INewTask extends UserInput {

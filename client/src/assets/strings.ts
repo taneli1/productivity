@@ -18,7 +18,13 @@ export const str_overview = "Open overview";
 export const str_manage = "Manage project";
 export const str_save_changes = "Save changes";
 export const str_delete_project = "Delete project";
+export const str_ok_delete = "Im sure";
 
 export const str_tasks_title = "Tasks";
 export const str_new_task = "New task";
-export const str_no_tasks = "Project has no tasks. Create one to get started.";
+export const str_no_tasks =
+  "Project has no uncompleted tasks. Create one to get started.";
+
+export const str_no_projects = "You have no projects.";
+export const str_no_tasks_today = "Today's completed tasks appear here.";
+export const str_tasks_today = "Completed today";

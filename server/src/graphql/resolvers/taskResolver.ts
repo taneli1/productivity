@@ -37,4 +37,11 @@ export class TaskResolver {
   async editTask(@Arg("data") data: EditTaskInput) {
     return await this.taskService.editTask(data);
   }
+
+  @Authorized()
+  @UseMiddleware(confirmIsProjectOwner)
+  @Mutation((returns) => Task)
+  async deleteTask(@Arg("projectId") projectId: string, @Arg("id") id: string) {
+    return await this.taskService.deleteTask(projectId, id);
+  }
 }

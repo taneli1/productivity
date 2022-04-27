@@ -9,7 +9,11 @@ import { IProject } from "../model/project";
 import { ProjectState, TaskState } from "../model/state";
 import { ITask } from "../model/task";
 import { Result } from "../result";
-import { queryCreateTask, queryEditTask } from "./../graphql/query/taskQuery";
+import {
+  queryCreateTask,
+  queryDeleteTask,
+  queryEditTask,
+} from "./../graphql/query/taskQuery";
 
 export const useProject = () => {
   const [projectRes, setProjectRes] = React.useState(Result.idle<IProject>());
@@ -106,6 +110,24 @@ export const useProject = () => {
     );
   };
 
+  const deleteTask = async (id: string, onDeleted: (task: ITask) => void) => {
+    const variables = {
+      projectId: projectRes?.data?._id,
+      id,
+    };
+    console.log(variables);
+
+    const res = await requestQuery<ITask>(
+      queryDeleteTask,
+      "deleteProject",
+      variables
+    );
+    if (res.isSuccess()) {
+      onDeleted(res.data!!);
+      getProject(projectRes?.data?._id ?? "");
+    }
+  };
+
   return {
     projectRes,
     getProject,
@@ -116,5 +138,6 @@ export const useProject = () => {
     projectEditRes,
     editProject,
     deleteCurrentProject,
+    deleteTask,
   };
 };

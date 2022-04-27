@@ -26,14 +26,11 @@ export class TaskService implements ITaskService {
       throw new Error("Task state is not valid");
     }
 
-    const res = await Task.findByIdAndUpdate(
-      params.taskId,
-      {
-        name: params.name,
-        state: params.state,
-      },
-      { new: true }
-    );
+    const updtObj = await this.buildTaskUpdateObject(params);
+
+    const res = await Task.findByIdAndUpdate(params.taskId, updtObj, {
+      new: true,
+    });
 
     if (!res) {
       throw new Error("Task not found");
@@ -42,13 +39,54 @@ export class TaskService implements ITaskService {
     return res;
   }
 
-  async deleteTask(taskId: string): Promise<ITask> {
-    const res = await Task.findByIdAndDelete(taskId);
+  async deleteTask(projectId: string, id: string): Promise<ITask> {
+    const res = await Task.findById(id);
 
     if (!res) {
       throw new Error("Task not found");
     }
 
-    return res;
+    if (res.projectId.valueOf() !== projectId) {
+      throw new Error(
+        "Should make a better implementation of project ownership checks"
+      );
+    }
+
+    const deleteRes = await Task.findByIdAndRemove(id);
+
+    if (!deleteRes) {
+      throw new Error("Could not delete task");
+    }
+
+    return deleteRes;
+  }
+
+  private async buildTaskUpdateObject(params: IEditTask): Promise<{}> {
+    let obj: any = {
+      name: params.name,
+      state: params.state,
+    };
+
+    const taskData = await Task.findById(params.taskId).lean();
+    if (!taskData) {
+      throw new Error("Could not find task with this id");
+    }
+
+    // Logic to edit the completion timestamp
+    const paramStateDone = params.state === TaskState.DONE;
+    if (paramStateDone) {
+      const timeStampEditNeeded = taskData.state === TaskState.TODO;
+      if (timeStampEditNeeded) {
+        obj.completionTs = Date.now();
+      }
+    } else {
+      const timeStampShouldBeReset =
+        taskData.completionTs !== null && taskData.completionTs !== undefined;
+      if (timeStampShouldBeReset) {
+        obj.completionTs = null;
+      }
+    }
+
+    return obj;
   }
 }

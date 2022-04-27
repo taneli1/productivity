@@ -3,3 +3,4 @@
   > Check the tasks project owner properly
 
 - Use @ArgsType for inputs etc.
+- Cascading delete on tasks when project deleted

@@ -2,10 +2,14 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   str_new_task,
+  str_no_tasks_today,
   str_overview,
   str_tasks_title,
+  str_tasks_today,
 } from "../../assets/strings";
 import { useProject } from "../../data/hooks/useProject";
+import { TaskState } from "../../data/model/state";
+import { startOfToday } from "../../utils/dateUtils";
 import { Button } from "../components/button";
 import { SecondaryButton } from "../components/buttonSecondary";
 import { Header } from "../components/header";
@@ -19,11 +23,11 @@ export const Project: React.FunctionComponent = () => {
   const {
     projectRes,
     getProject,
-    taskCreationRes,
     createTask,
     editTask,
     editProject,
     deleteCurrentProject,
+    deleteTask,
   } = useProject();
 
   useEffect(() => {
@@ -40,8 +44,22 @@ export const Project: React.FunctionComponent = () => {
     );
   }
 
+  console.log(projectRes.data?.tasks);
+
   const createEmptyTask = () => {
     createTask(" ");
+  };
+
+  const onDeleteProject = () => {
+    deleteCurrentProject(() => {
+      navigate(-1);
+    });
+  };
+
+  const onDeleteTask = (id: string) => {
+    deleteTask(id, () => {
+      // todo after task deleted
+    });
   };
 
   const color = `${projectRes.data?.hex}`;
@@ -55,11 +73,7 @@ export const Project: React.FunctionComponent = () => {
           <div>
             {projectRes.data && (
               <ManageProject
-                onDelete={() =>
-                  deleteCurrentProject(() => {
-                    navigate(-1);
-                  })
-                }
+                onDelete={onDeleteProject}
                 onSubmit={editProject}
                 project={projectRes.data}
               />
@@ -100,8 +114,24 @@ export const Project: React.FunctionComponent = () => {
           {/* Tasks content */}
           <TaskList
             accentColor={color}
-            tasks={projectRes?.data?.tasks}
+            tasks={projectRes?.data?.tasks?.filter(
+              (it) => it.state === TaskState.TODO
+            )}
             editTask={editTask}
+            deleteTask={onDeleteTask}
+          />
+
+          <p className="pop centered pt-4">{str_tasks_today}</p>
+          <TaskList
+            listEmptyText={str_no_tasks_today}
+            accentColor={color}
+            tasks={projectRes?.data?.tasks?.filter(
+              (it) =>
+                it.state === TaskState.DONE &&
+                parseInt(it.completionTs) > startOfToday()
+            )}
+            editTask={editTask}
+            deleteTask={onDeleteTask}
           />
         </div>
       </div>

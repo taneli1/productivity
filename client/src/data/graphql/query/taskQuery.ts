@@ -6,6 +6,7 @@ export const queryCreateTask = gql`
       _id
       name
       state
+      completionTs
       labels {
         name
         hex
@@ -19,6 +20,22 @@ export const queryEditTask = gql`
     editTask(data: $data) {
       _id
       name
+      state
+      completionTs
+      labels {
+        name
+        hex
+      }
+    }
+  }
+`;
+
+export const queryDeleteTask = gql`
+  mutation DeleteTask($id: String!, $projectId: String!) {
+    deleteTask(id: $id, projectId: $projectId) {
+      _id
+      name
+      completionTs
       state
       labels {
         name
