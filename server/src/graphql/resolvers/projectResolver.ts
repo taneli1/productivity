@@ -29,6 +29,13 @@ export class ProjectResolver {
   ) {}
 
   @Authorized()
+  @UseMiddleware(confirmIsProjectOwner)
+  @Query((returns) => Project)
+  async project(@Arg("id") id: string) {
+    return await this.projectService.getProject(id);
+  }
+
+  @Authorized()
   @Query((returns) => [Project])
   async projects(@Ctx() ctx: CustomContext) {
     return await this.projectService.getProjects(ctx.user._id);
@@ -41,6 +48,13 @@ export class ProjectResolver {
     @Ctx() ctx: CustomContext
   ) {
     return this.projectService.createProject(ctx.user._id, data);
+  }
+
+  @Authorized()
+  @UseMiddleware(confirmIsProjectOwner)
+  @Mutation((returns) => Project)
+  async deleteProject(@Arg("id") id: string) {
+    return await this.projectService.deleteProject(id);
   }
 
   @Authorized()

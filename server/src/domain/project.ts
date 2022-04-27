@@ -12,10 +12,12 @@ export interface IProject {
 }
 
 export interface IProjectService {
+  getProject: (id: string) => Promise<IProject>;
   getProjects: (userId: string) => Promise<IProject[]>;
 
   createProject: (userId: string, params: INewProject) => Promise<IProject>;
   editProject: (params: IEditProject) => Promise<IProject>;
+  deleteProject: (id: string) => Promise<IProject>;
 }
 
 export interface INewProject extends UserInput {

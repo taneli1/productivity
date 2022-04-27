@@ -36,7 +36,7 @@ export const NewProject: React.FunctionComponent<NewProjectProps> = ({
   };
   const handleShow = () => setShow(true);
   const submitProject = () => {
-    createProject(name, color.replace("#", ""));
+    createProject(name, color);
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

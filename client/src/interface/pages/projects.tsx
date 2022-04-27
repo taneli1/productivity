@@ -5,6 +5,7 @@ import { useProjects } from "../../data/hooks/useProjects";
 import { Header } from "../components/header";
 import { NewProject } from "../components/newProject";
 import { ProjectList } from "../components/projectList";
+import { ResultWrapper } from "../components/resultWrapper";
 
 export const Projects = () => {
   const {
@@ -25,17 +26,19 @@ export const Projects = () => {
   };
 
   return (
-    <div className="p-3">
-      <div className="d-flex justify-content-between">
-        <Header text={title_projects} />
-        <NewProject
-          createProject={createProject}
-          projectCreationRes={projectCreationRes}
-          onCloseCalled={() => clearProjectCreationRes}
-        />
-      </div>
+    <ResultWrapper result={projectList}>
+      <div className="p-3">
+        <div className="d-flex justify-content-between">
+          <Header text={title_projects} />
+          <NewProject
+            createProject={createProject}
+            projectCreationRes={projectCreationRes}
+            onCloseCalled={() => clearProjectCreationRes}
+          />
+        </div>
 
-      <ProjectList projects={projectList} onProjectClick={onProjectClicked} />
-    </div>
+        <ProjectList projects={projectList} onProjectClick={onProjectClicked} />
+      </div>
+    </ResultWrapper>
   );
 };

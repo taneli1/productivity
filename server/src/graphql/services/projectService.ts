@@ -10,6 +10,14 @@ import { ProjectState } from "../../domain/state";
 
 @Service()
 export class ProjectService implements IProjectService {
+  async getProject(id: string): Promise<IProject> {
+    const p = await Project.findById(id).lean();
+    if (!p) {
+      throw new Error("Project with this id not found");
+    }
+    return p;
+  }
+
   async getProjects(userId: string) {
     return await Project.find({ userId: userId }).lean();
   }
@@ -21,6 +29,15 @@ export class ProjectService implements IProjectService {
       userId: userId,
       creationDate: Date.now().toString(),
     });
+  }
+
+  async deleteProject(id: string): Promise<IProject> {
+    const p = await Project.findByIdAndDelete(id);
+    if (!p) {
+      throw new Error("Project with this id not found");
+    }
+
+    return p;
   }
 
   async editProject(params: IEditProject): Promise<IProject> {

@@ -13,14 +13,14 @@ export const ProjectCard: React.FunctionComponent<ProjectCardProps> = ({
     <div
       className="hover-op card container hover-shadow p-5 col-5 my-1 mx-1 shadow-sm"
       onClick={() => onClick(project._id)}
-      style={{ border: `1px solid #${project.hex}` }}
+      style={{ border: `1px solid ${project.hex}` }}
       key={project._id}
     >
       <h4 className="text-center align-content-center pop">
         <span
           className="colored-circle"
           style={{
-            background: `#${project.hex}`,
+            background: `${project.hex}`,
             alignSelf: "center",
             marginRight: 8,
           }}

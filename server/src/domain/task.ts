@@ -2,13 +2,14 @@ import { TaskState } from "./state";
 import { Timestamp } from "./types/timestamp";
 import { UserInput } from "./types/userInput";
 import { Label } from "./../graphql/schemas/labelSchema";
+import { ILabel } from "./label";
 
 export interface ITask {
   _id: string;
   name: string;
   state: TaskState;
   projectId: string;
-  labels: Label[];
+  labels: ILabel[];
   creationTs: Timestamp;
   completionTs: Timestamp;
 }

@@ -20,6 +20,7 @@ export const queryProjectData = gql`
       state
       hex
       tasks {
+        _id
         name
         state
         labels {
@@ -34,6 +35,30 @@ export const queryProjectData = gql`
 export const queryCreateProject = gql`
   mutation NewProject($data: NewProjectInput!) {
     createProject(data: $data) {
+      _id
+      name
+      hex
+      state
+      creationDate
+    }
+  }
+`;
+
+export const queryEditProject = gql`
+  mutation EditProject($data: EditProjectInput!) {
+    editProject(data: $data) {
+      _id
+      name
+      hex
+      state
+      creationDate
+    }
+  }
+`;
+
+export const queryDeleteProject = gql`
+  mutation DeleteProject($id: String!) {
+    deleteProject(id: $id) {
       _id
       name
       hex
