@@ -44,8 +44,6 @@ export const Project: React.FunctionComponent = () => {
     );
   }
 
-  console.log(projectRes.data?.tasks);
-
   const createEmptyTask = () => {
     createTask(" ");
   };
@@ -62,7 +60,7 @@ export const Project: React.FunctionComponent = () => {
     });
   };
 
-  const color = `${projectRes.data?.hex}`;
+  const color = projectRes.data?.hex;
 
   return (
     <ResultWrapper result={projectRes}>
@@ -121,6 +119,7 @@ export const Project: React.FunctionComponent = () => {
             deleteTask={onDeleteTask}
           />
 
+          {/* Tasks today */}
           <p className="pop centered pt-4">{str_tasks_today}</p>
           <TaskList
             listEmptyText={str_no_tasks_today}

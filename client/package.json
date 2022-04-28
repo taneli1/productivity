@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "sass": "^1.50.1",
     "typescript": "^4.6.3",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
-    "@types/react-color": "^3.0.6"
+    "@types/react-color": "^3.0.6",
+    "@types/uuid": "^8.3.4"
   }
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTracker } from "../../data/hooks/useTracker";
 import { TaskState } from "../../data/model/state";
 import { ITask } from "../../data/model/task";
 
@@ -15,6 +16,8 @@ export const Task: React.FunctionComponent<TaskProps> = ({
   editTask,
   deleteTask,
 }) => {
+  const { tracking, startTracking, finishTracking, isTracking } = useTracker();
+  const thisTaskTracked = isTracking(task._id);
   const [editing, setEditing] = useState(false);
   const [editedName, setEditedName] = useState(task.name);
 
@@ -31,6 +34,14 @@ export const Task: React.FunctionComponent<TaskProps> = ({
 
   const markAsUndone = () => {
     editTask(task, editedName, TaskState.TODO);
+  };
+
+  const toggleTracking = () => {
+    if (thisTaskTracked) {
+      finishTracking();
+    } else {
+      startTracking(task);
+    }
   };
 
   return (
@@ -61,7 +72,7 @@ export const Task: React.FunctionComponent<TaskProps> = ({
             onBlur={finishNameEdit}
           />
         ) : (
-          <p className="p-0 m-0 pop">{task.name}</p>
+          <p className="p-0 m-0 pop text-break">{task.name}</p>
         )}
       </div>
 
@@ -114,16 +125,35 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         </p>
 
         {/* Start time track btn */}
-        <svg
-          className="hover-op"
-          style={{ width: 48, height: 48, color: "rgb(57, 157, 53)" }}
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-          />
-        </svg>
+        {thisTaskTracked ? (
+          <svg
+            onClick={toggleTracking}
+            className="hover-op"
+            style={{ width: 48, height: 48, color: "rgb(57, 157, 53)" }}
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+            />
+          </svg>
+        ) : (
+          <svg
+            onClick={toggleTracking}
+            className="hover-op"
+            style={{
+              width: 48,
+              height: 48,
+              color: tracking ? "#6f" : "rgb(57, 157, 53)",
+            }}
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+            />
+          </svg>
+        )}
       </div>
     </div>
   );

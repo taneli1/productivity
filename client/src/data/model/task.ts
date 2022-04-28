@@ -6,6 +6,7 @@ export interface ITask {
   _id: string;
   name: string;
   state: TaskState;
+  projectId: string;
   labels: ILabel[];
   creationTs?: Timestamp;
   completionTs: Timestamp;

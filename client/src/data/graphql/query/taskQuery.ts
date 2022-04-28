@@ -6,6 +6,7 @@ export const queryCreateTask = gql`
       _id
       name
       state
+      projectId
       completionTs
       labels {
         name
@@ -22,6 +23,7 @@ export const queryEditTask = gql`
       name
       state
       completionTs
+      projectId
       labels {
         name
         hex
@@ -35,6 +37,7 @@ export const queryDeleteTask = gql`
     deleteTask(id: $id, projectId: $projectId) {
       _id
       name
+      projectId
       completionTs
       state
       labels {

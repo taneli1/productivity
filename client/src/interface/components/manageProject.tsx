@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import {
   str_cancel,
   str_delete_project,
-  str_input_project_hex_edit,
   str_input_project_name,
   str_manage,
   str_ok_delete,
@@ -90,8 +89,7 @@ export const ManageProject: React.FunctionComponent<MangageProjectProps> = ({
           {/* Color */}
           <div className="form-group pt-4">
             <label className="pop">{str_input_project_hex}</label>
-            <p className="centered">{str_input_project_hex_edit}</p>
-            <div className="centered px-3">
+            <div className="centered px-3 pt-3">
               <ColorPicker
                 color={newColor}
                 onColorChanged={(value) => setNewColor(value)}

@@ -28,3 +28,8 @@ export const str_no_tasks =
 export const str_no_projects = "You have no projects.";
 export const str_no_tasks_today = "Today's completed tasks appear here.";
 export const str_tasks_today = "Completed today";
+
+export const str_completed_projects = "Completed projects";
+export const str_hide = "Hide";
+export const str_show = "Show";
+export const str_home = "Home";
