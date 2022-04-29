@@ -1,4 +1,12 @@
 import { useState } from "react";
+import { IoMdTrash } from "react-icons/io";
+import {
+  MdArrowCircleUp,
+  MdCheckCircle,
+  MdOutlineDragIndicator,
+  MdPauseCircleFilled,
+  MdPlayCircleFilled,
+} from "react-icons/md";
 import { useTracker } from "../../data/hooks/useTracker";
 import { TaskState } from "../../data/model/state";
 import { ITask } from "../../data/model/task";
@@ -57,16 +65,8 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         style={{ minHeight: 32 }}
       >
         {task.state === TaskState.TODO && (
-          <div className="hover-op m-0 p-0 pe-2">
-            <svg
-              style={{ width: 24, height: 24, color: "#6f" }}
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M21 11H3V9H21V11M21 13H3V15H21V13Z"
-              />
-            </svg>
+          <div className="hover-op pe-2">
+            <MdOutlineDragIndicator size="24" color="#6f6f6f" />
           </div>
         )}
 
@@ -89,44 +89,32 @@ export const Task: React.FunctionComponent<TaskProps> = ({
       <div className="d-flex py-1 align-items-center">
         {/* Finished/NotFinished btn */}
         {task.state === TaskState.DONE ? (
-          <svg
-            className="hover-op"
+          <div
+            style={{ width: 32, height: 32 }}
             onClick={markAsUndone}
-            style={{ width: 36, height: 36, color: accentColor }}
-            viewBox="0 0 24 24"
+            className="hover-op"
           >
-            <path
-              fill="currentColor"
-              d="M12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22M12,7L7,12H10V16H14V12H17L12,7Z"
-            />
-          </svg>
+            <MdArrowCircleUp color={accentColor} size="32" />
+          </div>
         ) : (
-          <svg
+          <div
+            style={{ width: 32, height: 32 }}
             onClick={markAsComplete}
             className="hover-op"
-            style={{ width: 36, height: 36, color: accentColor }}
-            viewBox="0 0 24 24"
           >
-            <path
-              fill="currentColor"
-              d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-            />
-          </svg>
+            <MdCheckCircle size="32" color={accentColor} />
+          </div>
         )}
 
         {/* Delete btn */}
         {task.state === TaskState.TODO && (
-          <svg
-            onClick={() => deleteTask(task._id)}
+          <div
+            style={{ width: 32, height: 32 }}
+            onClick={toggleTracking}
             className="hover-op"
-            style={{ width: 36, height: 36, color: "#6f" }}
-            viewBox="0 0 24 24"
           >
-            <path
-              fill="currentColor"
-              d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M17,7H14.5L13.5,6H10.5L9.5,7H7V9H17V7M9,18H15A1,1 0 0,0 16,17V10H8V17A1,1 0 0,0 9,18Z"
-            />
-          </svg>
+            <IoMdTrash size="32" color="#6f6f6f" />
+          </div>
         )}
 
         <p className="px-3 m-0" style={{ color: "#6F" }}>
@@ -137,33 +125,24 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         {task.state === TaskState.TODO && (
           <>
             {thisTaskTracked ? (
-              <svg
+              <div
+                style={{ width: 48, height: 48 }}
                 onClick={toggleTracking}
                 className="hover-op"
-                style={{ width: 48, height: 48, color: "rgb(57, 157, 53)" }}
-                viewBox="0 0 24 24"
               >
-                <path
-                  fill="currentColor"
-                  d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-                />
-              </svg>
+                <MdPauseCircleFilled size="48" color="rgb(57, 157, 53)" />
+              </div>
             ) : (
-              <svg
+              <div
+                style={{ width: 48, height: 48 }}
                 onClick={toggleTracking}
                 className="hover-op"
-                style={{
-                  width: 48,
-                  height: 48,
-                  color: tracking ? "#6f6f6f" : "rgb(57, 157, 53)",
-                }}
-                viewBox="0 0 24 24"
               >
-                <path
-                  fill="currentColor"
-                  d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+                <MdPlayCircleFilled
+                  size="48"
+                  color={tracking ? "#6f6f6f" : "rgb(57, 157, 53)"}
                 />
-              </svg>
+              </div>
             )}
           </>
         )}

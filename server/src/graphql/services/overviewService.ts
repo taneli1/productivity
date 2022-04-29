@@ -33,40 +33,32 @@ export class OverviewService implements IOverviewService {
     from: Timestamp,
     to: Timestamp
   ): Promise<IOverview> {
-    const taskIds = (await Task.find({ projectId: { $in: ids } }).lean()).map(
-      (it) => it._id
-    );
-    const entries = await this.getEntriesForTasks(taskIds, from, to);
-    const totals = calculateTotals(entries);
+    const completedTasks = (
+      await Task.find({
+        projectId: { $in: ids },
+        completionTs: { $gt: from, $lt: to },
+      }).lean()
+    ).map((it) => it._id);
+
+    const entriesInTimeframe = await this.getEntriesInTimeframe(from, to);
     const overview: IOverview = {
       from: from,
       to: to,
-      tasksCompleted: totals.count,
-      totalTimeInSeconds: totals.seconds,
+      tasksCompleted: completedTasks.length,
+      totalTimeInSeconds: entriesInTimeframe
+        .map((it) => it.timeInSeconds)
+        .reduce((prev, curr) => prev + curr, 0),
     };
 
     return overview;
   }
 
-  private async getEntriesForTasks(
-    taskIds: string[],
+  private async getEntriesInTimeframe(
     from: Timestamp,
     to: Timestamp
   ): Promise<IEntry[]> {
     return await Entry.find({
-      taskId: { $in: taskIds },
       createdAt: { $gt: from, $lt: to },
     }).lean();
   }
 }
-
-const calculateTotals = (
-  entries: IEntry[]
-): { count: number; seconds: number } => {
-  return {
-    count: entries.length,
-    seconds: entries
-      .map((prev, curr) => prev.timeInSeconds)
-      .reduce((prev, curr) => prev + curr, 0),
-  };
-};

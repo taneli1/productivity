@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { MdAdd } from "react-icons/md";
 import {
   str_cancel,
   str_close_modal,
@@ -45,15 +46,7 @@ export const NewProject: React.FunctionComponent<NewProjectProps> = ({
   return (
     <>
       <Button text={str_new_project} onClick={handleShow}>
-        <svg
-          style={{ width: 24, height: 24, marginRight: 6 }}
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-          />
-        </svg>
+        <MdAdd className="me-1" size="1.4em" color="white" />
       </Button>
 
       <Modal

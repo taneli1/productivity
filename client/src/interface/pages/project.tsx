@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { AiOutlineAreaChart } from "react-icons/ai";
+import { MdAdd } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   str_new_task,
@@ -77,19 +79,7 @@ export const Project: React.FunctionComponent = () => {
               />
             )}
             <SecondaryButton onClick={() => {}} text={str_overview}>
-              <svg
-                style={{
-                  width: 24,
-                  height: 24,
-                  color: color,
-                }}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M9 17H7V10H9V17M13 17H11V7H13V17M17 17H15V13H17V17Z"
-                />
-              </svg>
+              <AiOutlineAreaChart size="1.4em" color={color} />
             </SecondaryButton>
           </div>
         </div>
@@ -100,12 +90,7 @@ export const Project: React.FunctionComponent = () => {
           <div className="p-3 d-flex justify-content-between align-items-center">
             <Header size="sm" text={str_tasks_title} />
             <Button text={str_new_task} onClick={createEmptyTask}>
-              <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                />
-              </svg>
+              <MdAdd className="me-1" size="1.4em" color="white" />
             </Button>
           </div>
 

@@ -11,7 +11,7 @@ export const SecondaryButton: React.FunctionComponent<ButtonSecondaryProps> = ({
   return (
     <div
       onClick={onClick}
-      className="pop hover-shadow  shadow-sm hover-op d-flex align-content-center p-2"
+      className="pop hover-shadow  shadow-sm hover-op d-flex align-items-center p-2"
       style={{ border: "1px solid #cecece", borderRadius: 4 }}
     >
       {children}
