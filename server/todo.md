@@ -4,3 +4,4 @@
 
 - Use @ArgsType for inputs etc.
 - Cascading delete on tasks when project deleted
+- Queries should be moved out of service, have them only call the functions

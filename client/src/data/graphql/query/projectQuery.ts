@@ -37,6 +37,18 @@ export const queryProjectData = gql`
   }
 `;
 
+export const queryRecentProjects = gql`
+  query GetRecentProjects($limit: Float!) {
+    getRecents(limit: $limit) {
+      _id
+      name
+      hex
+      state
+      creationDate
+    }
+  }
+`;
+
 export const queryCreateProject = gql`
   mutation NewProject($data: NewProjectInput!) {
     createProject(data: $data) {

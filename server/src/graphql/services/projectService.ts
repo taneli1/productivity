@@ -7,6 +7,8 @@ import {
 } from "../../domain/project";
 import Project from "../../database/models/projectModel";
 import { ProjectState } from "../../domain/state";
+import Task from "../../database/models/taskModel";
+import Entry from "../../database/models/entryModel";
 
 @Service()
 export class ProjectService implements IProjectService {
@@ -58,5 +60,53 @@ export class ProjectService implements IProjectService {
     }
 
     return res;
+  }
+
+  async getRecentlyWorkedOnProjects(
+    userId: string,
+    limit: number
+  ): Promise<IProject[]> {
+    return await this.badWayToDoThis(userId, limit);
+  }
+
+  // Todo fix
+  // Should prob. just have a projectId field on each entry
+  private async badWayToDoThis(
+    userId: string,
+    limit: number
+  ): Promise<IProject[]> {
+    const userProjects = await Project.find({ userId: userId }).lean();
+    const projectIds = userProjects.map((it) => it._id);
+    const tasks = await Task.find({
+      projectId: { $in: projectIds },
+    }).lean();
+    const taskIds = tasks.map((it) => it._id);
+
+    const taskIdToProjectId = new Map<string, string>();
+    tasks.forEach((task) => {
+      taskIdToProjectId.set(task._id.valueOf(), task.projectId.valueOf());
+    });
+
+    const entries = await Entry.find({
+      taskId: { $in: taskIds },
+    })
+      .sort({ createdAt: -1 })
+      .lean();
+
+    let projectsIdsToReturn = new Set();
+
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      const entryProjectId = taskIdToProjectId.get(entry.taskId.valueOf());
+
+      projectsIdsToReturn.add(entryProjectId);
+      if (projectsIdsToReturn.size == limit) {
+        break;
+      }
+    }
+
+    return userProjects.filter((project) =>
+      projectsIdsToReturn.has(project._id.valueOf())
+    );
   }
 }

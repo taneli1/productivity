@@ -33,3 +33,7 @@ export const str_completed_projects = "Completed projects";
 export const str_hide = "Hide";
 export const str_show = "Show";
 export const str_home = "Home";
+
+export const str_completed_tasks = "Tasks completed";
+export const str_task_time = "Time working";
+export const str_recents = "Recent projects";

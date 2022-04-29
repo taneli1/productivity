@@ -18,6 +18,10 @@ export interface IProjectService {
   createProject: (userId: string, params: INewProject) => Promise<IProject>;
   editProject: (params: IEditProject) => Promise<IProject>;
   deleteProject: (id: string) => Promise<IProject>;
+  getRecentlyWorkedOnProjects: (
+    userId: string,
+    limit: number
+  ) => Promise<IProject[]>;
 }
 
 export interface INewProject extends UserInput {

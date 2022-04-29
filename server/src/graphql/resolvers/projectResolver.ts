@@ -42,6 +42,15 @@ export class ProjectResolver {
   }
 
   @Authorized()
+  @Query((returns) => [Project])
+  async getRecents(@Arg("limit") limit: number, @Ctx() ctx: CustomContext) {
+    return await this.projectService.getRecentlyWorkedOnProjects(
+      ctx.user._id,
+      limit
+    );
+  }
+
+  @Authorized()
   @Mutation((returns) => Project)
   async createProject(
     @Arg("data") data: NewProjectInput,
