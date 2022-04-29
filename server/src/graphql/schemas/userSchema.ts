@@ -1,4 +1,5 @@
 import { Field, ID, InputType, ObjectType } from "type-graphql";
+import { Timestamp } from "../../domain/types/timestamp";
 import { ICredentials, IUser } from "../../domain/user";
 
 @ObjectType()
@@ -10,7 +11,7 @@ export class User implements IUser {
   username!: string;
 
   @Field()
-  creationDate!: string;
+  creationDate!: Timestamp;
 
   @Field()
   token?: string;

@@ -13,8 +13,8 @@ const taskSchema = new Schema<ITask>({
   },
   labels: [mongoose.Schema.Types.ObjectId],
   projectId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  creationTs: { type: String, required: true },
-  completionTs: { type: String },
+  creationTs: { type: Number, required: true },
+  completionTs: { type: Number },
 });
 
 export default model<ITask>("Task", taskSchema);

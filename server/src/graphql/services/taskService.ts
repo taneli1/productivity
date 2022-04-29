@@ -6,8 +6,7 @@ import { TaskState } from "../../domain/state";
 @Service()
 export class TaskService implements ITaskService {
   async getTasksForProject(projectId: string): Promise<ITask[]> {
-    console.log(projectId);
-    const tasks = await Task.find({ projectId: projectId });
+    const tasks = await Task.find({ projectId: projectId }).lean();
     return tasks;
   }
 

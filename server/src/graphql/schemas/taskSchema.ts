@@ -4,6 +4,7 @@ import { IEditTask, ITask } from "../../domain/task";
 import { Timestamp } from "../../domain/types/timestamp";
 import { Label } from "./labelSchema";
 import { INewTask } from "./../../domain/task";
+import { Entry } from "./entrySchema";
 
 @ObjectType()
 export class Task implements ITask {
@@ -21,6 +22,9 @@ export class Task implements ITask {
 
   @Field((type) => [Label])
   labels!: Label[];
+
+  @Field((type) => [Entry])
+  entries!: Entry[];
 
   @Field()
   creationTs!: Timestamp;

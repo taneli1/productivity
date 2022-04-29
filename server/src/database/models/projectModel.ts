@@ -7,7 +7,7 @@ const projectSchema = new Schema<IProject>({
   userId: { type: mongoose.Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
   hex: { type: String, required: true },
-  creationDate: { type: String, required: true },
+  creationDate: { type: Number, required: true },
   state: {
     type: String,
     enum: Object.values(ProjectState),

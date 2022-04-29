@@ -2,20 +2,28 @@ import {
   Arg,
   Args,
   Authorized,
+  Ctx,
+  FieldResolver,
   Mutation,
   Query,
   Resolver,
+  Root,
   UseMiddleware,
 } from "type-graphql";
 import { Service } from "typedi";
 import { confirmIsProjectOwner } from "../auth/authChecker";
+import { CustomContext } from "../auth/context";
 import { EditTaskInput, NewTaskInput, Task } from "../schemas/taskSchema";
+import { EntryService } from "../services/entryService";
 import { TaskService } from "../services/taskService";
 
 @Service()
 @Resolver((of) => Task)
 export class TaskResolver {
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private entryService: EntryService
+  ) {}
 
   @Authorized()
   @UseMiddleware(confirmIsProjectOwner)
@@ -43,5 +51,15 @@ export class TaskResolver {
   @Mutation((returns) => Task)
   async deleteTask(@Arg("projectId") projectId: string, @Arg("id") id: string) {
     return await this.taskService.deleteTask(projectId, id);
+  }
+
+  @Authorized()
+  @FieldResolver()
+  async entries(@Root() task: Task, @Ctx() ctx: CustomContext) {
+    const res = await this.entryService.getAllTaskEntries(
+      ctx.user._id,
+      task._id
+    );
+    return res;
   }
 }

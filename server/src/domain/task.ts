@@ -1,7 +1,6 @@
 import { TaskState } from "./state";
 import { Timestamp } from "./types/timestamp";
 import { UserInput } from "./types/userInput";
-import { Label } from "./../graphql/schemas/labelSchema";
 import { ILabel } from "./label";
 
 export interface ITask {

@@ -11,8 +11,6 @@ export const isProjectOwner = async (
     throw new Error("Project with id " + projectId + "not found");
   }
 
-  console.log(project);
-
   return project.userId.valueOf() == userId;
 };
 
