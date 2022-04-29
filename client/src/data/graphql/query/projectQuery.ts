@@ -29,6 +29,9 @@ export const queryProjectData = gql`
           name
           hex
         }
+        entries {
+          _id
+        }
       }
     }
   }

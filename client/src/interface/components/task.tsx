@@ -28,6 +28,8 @@ export const Task: React.FunctionComponent<TaskProps> = ({
     setEditing(false);
   };
 
+  console.log(task.entries);
+
   const markAsComplete = () => {
     editTask(task, editedName, TaskState.DONE);
   };
@@ -45,20 +47,28 @@ export const Task: React.FunctionComponent<TaskProps> = ({
   };
 
   return (
-    <div className="d-flex justify-content-between border align-items-center rounded shadow-sm px-3">
+    <div
+      className="d-flex justify-content-between border align-items-center rounded shadow-sm px-3"
+      style={{ minHeight: 55 }}
+    >
       <div
         onClick={() => setEditing(true)}
         className="d-flex flex-fill py-1 align-items-center"
         style={{ minHeight: 32 }}
       >
-        <div className="hover-op m-0 p-0 pe-2">
-          <svg
-            style={{ width: 24, height: 24, color: "#6f" }}
-            viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d="M21 11H3V9H21V11M21 13H3V15H21V13Z" />
-          </svg>
-        </div>
+        {task.state === TaskState.TODO && (
+          <div className="hover-op m-0 p-0 pe-2">
+            <svg
+              style={{ width: 24, height: 24, color: "#6f" }}
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M21 11H3V9H21V11M21 13H3V15H21V13Z"
+              />
+            </svg>
+          </div>
+        )}
 
         {editing ? (
           <input
@@ -78,7 +88,6 @@ export const Task: React.FunctionComponent<TaskProps> = ({
 
       <div className="d-flex py-1 align-items-center">
         {/* Finished/NotFinished btn */}
-
         {task.state === TaskState.DONE ? (
           <svg
             className="hover-op"
@@ -125,34 +134,38 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         </p>
 
         {/* Start time track btn */}
-        {thisTaskTracked ? (
-          <svg
-            onClick={toggleTracking}
-            className="hover-op"
-            style={{ width: 48, height: 48, color: "rgb(57, 157, 53)" }}
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-            />
-          </svg>
-        ) : (
-          <svg
-            onClick={toggleTracking}
-            className="hover-op"
-            style={{
-              width: 48,
-              height: 48,
-              color: tracking ? "#6f" : "rgb(57, 157, 53)",
-            }}
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-            />
-          </svg>
+        {task.state === TaskState.TODO && (
+          <>
+            {thisTaskTracked ? (
+              <svg
+                onClick={toggleTracking}
+                className="hover-op"
+                style={{ width: 48, height: 48, color: "rgb(57, 157, 53)" }}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M15,16H13V8H15M11,16H9V8H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+                />
+              </svg>
+            ) : (
+              <svg
+                onClick={toggleTracking}
+                className="hover-op"
+                style={{
+                  width: 48,
+                  height: 48,
+                  color: tracking ? "#6f6f6f" : "rgb(57, 157, 53)",
+                }}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+                />
+              </svg>
+            )}
+          </>
         )}
       </div>
     </div>

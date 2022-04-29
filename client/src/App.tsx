@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./App.css";
 import { useAuth } from "./data/hooks/useAuth";
+import { TimeTracker } from "./interface/components/timeTracker";
 
 export default function App() {
   const auth = useAuth();
@@ -27,18 +28,12 @@ export default function App() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className={`navbar-collapse collapse ${expanded ? "show" : ""}`}>
-          <div
-            style={{
-              padding: 32,
-              marginTop: 100,
-              width: "100%",
-              height: 50,
-              background: "#000",
-            }}
-          ></div>
-          <h1 className="navbar-brand pop">Navigation</h1>
-          <ul className="navbar-nav">
+        <div
+          className={`pt-3 navbar-collapse collapse ${expanded ? "show" : ""}`}
+        >
+          <TimeTracker />
+          <h1 className="navbar-brand pop pt-5">Navigation</h1>
+          <ul className="navbar-nav ps-2">
             <li className="nav-item d-flex align-items-center">
               <svg
                 style={{ width: 24, height: 24, color: "#fff" }}

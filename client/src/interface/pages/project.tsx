@@ -126,8 +126,7 @@ export const Project: React.FunctionComponent = () => {
             accentColor={color}
             tasks={projectRes?.data?.tasks?.filter(
               (it) =>
-                it.state === TaskState.DONE &&
-                parseInt(it.completionTs) > startOfToday()
+                it.state === TaskState.DONE && it.completionTs > startOfToday()
             )}
             editTask={editTask}
             deleteTask={onDeleteTask}

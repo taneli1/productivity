@@ -1,3 +1,4 @@
+import { IEntry } from "./entry";
 import { ILabel } from "./label";
 import { TaskState } from "./state";
 import { Timestamp } from "./types/timestamp";
@@ -10,4 +11,5 @@ export interface ITask {
   labels: ILabel[];
   creationTs?: Timestamp;
   completionTs: Timestamp;
+  entries: IEntry[] | null;
 }
