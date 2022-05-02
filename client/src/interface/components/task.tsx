@@ -10,6 +10,7 @@ import {
 import { useTracker } from "../../data/hooks/useTracker";
 import { TaskState } from "../../data/model/state";
 import { ITask } from "../../data/model/task";
+import { formatSeconds, startOfToday } from "../../utils/dateTimeUtils";
 
 interface TaskProps {
   task: ITask;
@@ -28,6 +29,14 @@ export const Task: React.FunctionComponent<TaskProps> = ({
   const thisTaskTracked = isTracking(task._id);
   const [editing, setEditing] = useState(false);
   const [editedName, setEditedName] = useState(task.name);
+  const borderStyle = thisTaskTracked
+    ? {
+        border: `2px solid ${accentColor}`,
+        borderRadius: 6,
+        minHeight: 55,
+        margin: 2,
+      }
+    : { border: `1px solid #e9e9e9`, minHeight: 55, margin: 2 };
 
   const finishNameEdit = () => {
     if (task.name !== editedName) {
@@ -35,8 +44,6 @@ export const Task: React.FunctionComponent<TaskProps> = ({
     }
     setEditing(false);
   };
-
-  console.log(task.entries);
 
   const markAsComplete = () => {
     editTask(task, editedName, TaskState.DONE);
@@ -54,10 +61,32 @@ export const Task: React.FunctionComponent<TaskProps> = ({
     }
   };
 
+  /**
+   * Returns a tuple: 0 - seconds today | 1- seconds in total
+   */
+  const timeSpent = (): [number, number] => {
+    const total = task?.entries
+      ?.map((entry) => entry.timeInSeconds)
+      .reduce((prev, next) => prev + next, 0);
+
+    const today = task?.entries
+      ?.filter((entry) => entry.createdAt > startOfToday())
+      .map((entry) => entry.timeInSeconds)
+      .reduce((prev, next) => prev + next, 0);
+
+    return [today ?? 0, total ?? 0];
+  };
+
+  const timeText = () => {
+    const spent = timeSpent();
+
+    return formatSeconds(spent[1]) + "/" + formatSeconds(spent[0]);
+  };
+
   return (
     <div
-      className="d-flex justify-content-between border align-items-center rounded shadow-sm px-3"
-      style={{ minHeight: 55 }}
+      className="d-flex justify-content-between align-items-center rounded shadow-sm px-3"
+      style={borderStyle}
     >
       <div
         onClick={() => setEditing(true)}
@@ -86,6 +115,10 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         )}
       </div>
 
+      <p className="px-3 m-0 pop fst-italic" style={{ color: "#6F" }}>
+        {timeText()}
+      </p>
+
       <div className="d-flex py-1 align-items-center">
         {/* Finished/NotFinished btn */}
         {task.state === TaskState.DONE ? (
@@ -110,16 +143,12 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         {task.state === TaskState.TODO && (
           <div
             style={{ width: 32, height: 32 }}
-            onClick={toggleTracking}
+            onClick={() => deleteTask(task._id)}
             className="hover-op"
           >
             <IoMdTrash size="32" color="#6f6f6f" />
           </div>
         )}
-
-        <p className="px-3 m-0" style={{ color: "#6F" }}>
-          TIME
-        </p>
 
         {/* Start time track btn */}
         {task.state === TaskState.TODO && (

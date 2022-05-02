@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { useEntries } from "../hooks/useEntries";
-import { ITask } from "../model/task";
-import { ITracker, ITrackerEntry } from "../model/timeTracker";
+import { useEntries } from "../../hooks/useEntries";
+import { ITask } from "../../model/task";
+import { ITracker, ITrackerEntry } from "../../model/timeTracker";
 import TrackerContext from "./trackerContext";
 
-const useTracker = (): ITracker => {
+const useTracker = (onEntrySaved: () => void): ITracker => {
   const { saveEntry } = useEntries();
   const [tracking, setTracking] = useState(false);
   const [current, setCurrent] = useState<ITrackerEntry | null>(null);
@@ -22,6 +22,23 @@ const useTracker = (): ITracker => {
       });
     }, 1000);
   };
+
+  // TODO Replace with proper autosave etc
+  useEffect(() => {
+    if (tracking) {
+      window.onbeforeunload = () => {
+        return true;
+      };
+    }
+
+    if (!tracking) {
+      window.onbeforeunload = null;
+    }
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, [tracking]);
 
   const handleTrackingStopped = useCallback((interval: any) => {
     clearInterval(interval);
@@ -68,12 +85,12 @@ const useTracker = (): ITracker => {
     saveEntry(entryToSave, (response) => {
       // TODO Retry logic on failures
       console.log("Save callback response:", response);
-
+      onEntrySaved();
       if (entryToSave.task._id === response.data?.taskId) {
         setEntryToSave(null);
       }
     });
-  }, [entryToSave, saveEntry]);
+  }, [entryToSave, onEntrySaved, saveEntry]);
 
   const saveCurrent = () => {
     setEntryToSave(current);
@@ -86,8 +103,8 @@ const useTracker = (): ITracker => {
   return { tracking, current, startTracking, isTracking, finishTracking };
 };
 
-export const TrackerProvider = ({ children }: any) => {
-  const tracker = useTracker();
+export const TrackerProvider = ({ children, onEntrySaved }: any) => {
+  const tracker = useTracker(onEntrySaved);
 
   return (
     <TrackerContext.Provider value={tracker}>

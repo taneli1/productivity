@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { startOfToday } from "../../utils/dateTimeUtils";
 import { requestQuery, stateQueryRequest } from "../graphql/graphql";
 import {
   queryDeleteProject,
@@ -60,6 +61,16 @@ export const useProject = () => {
         getProject(projectRes?.data?._id ?? "");
       }
     );
+  };
+
+  const getSecondsToday = (): number => {
+    const secondsTodayTotal = projectRes.data?.tasks
+      ?.flatMap((task) => task.entries)
+      .filter((entry) => entry && entry?.createdAt > startOfToday())
+      .map((entry) => entry!!.timeInSeconds)
+      .reduce((acc, entry) => acc + entry, 0);
+
+    return secondsTodayTotal ?? 0;
   };
 
   const deleteCurrentProject = async (
@@ -131,6 +142,7 @@ export const useProject = () => {
   return {
     projectRes,
     getProject,
+    getSecondsToday,
     taskCreationRes,
     createTask,
     taskEditRes,

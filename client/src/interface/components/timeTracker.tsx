@@ -1,8 +1,11 @@
+import { useOverview } from "../../data/hooks/useOverview";
 import { useTracker } from "../../data/hooks/useTracker";
+import { TimeDisplay } from "./timeDisplay";
 
 interface TimeTrackerProps {}
 
 export const TimeTracker: React.FunctionComponent<TimeTrackerProps> = ({}) => {
+  const { daily } = useOverview();
   const { current, tracking, finishTracking } = useTracker();
 
   return (
@@ -11,7 +14,9 @@ export const TimeTracker: React.FunctionComponent<TimeTrackerProps> = ({}) => {
       style={{ width: 210, height: 110 }}
     >
       <div className="d-flex justify-content-between pe-1">
-        <h5 className="pt-2 ps-2">{tracking ? "Tracking" : "Not tracking"}</h5>
+        <h5 className={`pt-2 ps-2 ${tracking ? "blink" : ""}`}>
+          {tracking ? "Tracking" : "Not tracking"}
+        </h5>
         {tracking && (
           <svg
             onClick={finishTracking}
@@ -26,14 +31,28 @@ export const TimeTracker: React.FunctionComponent<TimeTrackerProps> = ({}) => {
           </svg>
         )}
       </div>
-      <h4 className="ps-2">{current?.timeInSeconds}</h4>
+      {tracking ? (
+        <div className="">
+          <TimeDisplay
+            seconds={current?.timeInSeconds ?? 0}
+            text={"Without break:"}
+          />
+        </div>
+      ) : (
+        <div className="">
+          <TimeDisplay
+            seconds={daily.data?.totalTimeInSeconds ?? 0}
+            text={"Today:"}
+          />
+        </div>
+      )}
 
       <div className="d-flex align-items-center ps-2 pb-2">
         <p
           className="fst-italic m-0 text-truncate pe-1"
           style={{ maxWidth: 165 }}
         >
-          {current?.task?.name ?? "TEST asd sad sad sad sad sa "}
+          {current?.task?.name}
         </p>
       </div>
     </div>

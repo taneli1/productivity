@@ -45,10 +45,11 @@ export const Home = () => {
         <div className="ps-3 pt-3">
           <Header text={str_recents} size="sm" />
         </div>
-        <ResultWrapper result={recents}>
+        <ResultWrapper pageCentered={false} result={recents}>
           <ProjectList
             projects={recents.data ?? []}
             onProjectClick={onProjectClicked}
+            errText={"No recent projects."}
           />
         </ResultWrapper>
       </div>

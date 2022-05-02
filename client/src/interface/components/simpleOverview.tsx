@@ -2,6 +2,7 @@ import { FiClock } from "react-icons/fi";
 import { RiCheckDoubleFill } from "react-icons/ri";
 import { str_completed_tasks, str_task_time } from "../../assets/strings";
 import { IOverview } from "../../data/model/overview";
+import { formatSeconds } from "../../utils/dateTimeUtils";
 import { Header } from "./header";
 interface SimpleOverviewParams {
   overview?: IOverview;
@@ -31,7 +32,7 @@ export const SimpleOverView: React.FunctionComponent<SimpleOverviewParams> = ({
           <div className="d-flex pop align-items-center ">
             <FiClock size="42" color={color} />
             <h3 className="fw-bold m-0 p-0 ms-2">
-              {overview?.totalTimeInSeconds}s
+              {formatSeconds(overview?.totalTimeInSeconds)}
             </h3>
           </div>
           <p className="pop mt-2">{str_task_time}</p>

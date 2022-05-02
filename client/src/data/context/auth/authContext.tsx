@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Credentials } from "../model/credentials";
-import { IUser } from "../model/user";
-import { Result } from "../result";
+import { Credentials } from "../../model/credentials";
+import { IUser } from "../../model/user";
+import { Result } from "../../result";
 
 interface IAuthContext {
   user: Result<IUser> | null;

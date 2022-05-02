@@ -1,5 +1,5 @@
 import React from "react";
-import { ITracker } from "../model/timeTracker";
+import { ITracker } from "../../model/timeTracker";
 
 interface ITrackerContext extends ITracker {}
 

@@ -48,6 +48,16 @@ div .colored-circle {
   animation: spinner 1s linear infinite;
 }
 
+.blink {
+  animation: blinker 2.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Font */
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300&display=swap");

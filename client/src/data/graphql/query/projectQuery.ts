@@ -31,6 +31,8 @@ export const queryProjectData = gql`
         }
         entries {
           _id
+          createdAt
+          timeInSeconds
         }
       }
     }
