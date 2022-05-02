@@ -4,6 +4,17 @@ export const startOfToday = (): number => {
   return d.getTime();
 };
 
+export const startOfDate = (timestamp: number): number => {
+  const cp = new Date(timestamp);
+  cp.setUTCHours(0, 0, 0, 0);
+  return cp.getTime();
+};
+
+export const formatUnix = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString();
+};
+
 export const minusDays = (date: Date, days: number): number => {
   return new Date(
     date.getFullYear(),
