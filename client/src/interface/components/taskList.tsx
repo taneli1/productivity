@@ -31,7 +31,11 @@ export const TaskList: React.FunctionComponent<TaskListProps> = ({
     ));
 
   if (!tasks || tasks.length === 0) {
-    return <p className="centered pt-5">{listEmptyText ?? str_no_tasks}</p>;
+    return (
+      <p className="centered pt-5 pop fst-italic">
+        {listEmptyText ?? str_no_tasks}
+      </p>
+    );
   }
 
   return <div className="row justify-content-center px-5">{list}</div>;

@@ -137,7 +137,7 @@ export const Project: React.FunctionComponent = () => {
           />
 
           {/* Tasks today */}
-          <p className="pop centered pt-4">{str_tasks_today}</p>
+          <p className="pop centered pt-4 fw-bold">{str_tasks_today}</p>
           <TaskList
             listEmptyText={str_no_tasks_today}
             accentColor={color}

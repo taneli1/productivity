@@ -70,15 +70,14 @@ export const NavBar: React.FunctionComponent<NavBarProps> = () => {
             </Link>
           </li>
         </ul>
+        <button
+          className="btn btn-primary pop fw-bold mt-5 text-white"
+          onClick={auth.logout}
+        >
+          <AiOutlineLogout size="1.4em" color="white" className="me-2" />
+          Logout
+        </button>
       </div>
-      <button
-        className="btn btn-primary pop fw-bold"
-        style={{ position: "absolute", bottom: 20, background: "white" }}
-        onClick={auth.logout}
-      >
-        <AiOutlineLogout size="1.4em" color="black" className="me-2" />
-        Logout
-      </button>
     </nav>
   );
 };

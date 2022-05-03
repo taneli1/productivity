@@ -9,14 +9,14 @@ $theme-colors: (
 }
 
 .centered-page {
-  height: 80vh; /* Magic here */
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .centered {
-  height: 100%; /* Magic here */
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,8 +57,6 @@ div .colored-circle {
     opacity: 0;
   }
 }
-
-/* Font */
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300&display=swap");
 
