@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { minusDays } from "../../../utils/dateTimeUtils";
+import { minusHours, startOfToday } from "../../../utils/dateTimeUtils";
 import { stateQueryRequest } from "../../graphql/graphql";
 import { queryTimeOverview } from "../../graphql/query/overviewQuery";
 import { queryRecentProjects } from "../../graphql/query/projectQuery";
@@ -30,11 +30,11 @@ const useOverview = () => {
   const fetchOverviews = useCallback(async () => {
     const today = new Date();
     const dayParams = {
-      from: minusDays(today, 1),
+      from: startOfToday(),
       to: today.getTime(),
     };
     const weekParams = {
-      from: minusDays(today, 6),
+      from: minusHours(today, 144),
       to: today.getTime(),
     };
 

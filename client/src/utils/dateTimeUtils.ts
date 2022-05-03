@@ -15,11 +15,12 @@ export const formatUnix = (timestamp: number): string => {
   return date.toLocaleDateString();
 };
 
-export const minusDays = (date: Date, days: number): number => {
+export const minusHours = (date: Date, hours: number): number => {
   return new Date(
     date.getFullYear(),
     date.getMonth(),
-    date.getDate() - days
+    date.getDate(),
+    date.getHours() - hours
   ).getTime();
 };
 
@@ -33,4 +34,49 @@ export const formatSeconds = (seconds: number | undefined | null): string => {
   }
 
   return new Date(seconds * 1000).toISOString().substr(11, 5);
+};
+
+export const getWeekDay = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  let day;
+
+  switch (date.getDay()) {
+    case 0:
+      day = "Mon";
+      break;
+
+    case 1:
+      day = "Tue";
+      break;
+
+    case 2:
+      day = "Wed";
+      break;
+
+    case 3:
+      day = "Thu";
+      break;
+
+    case 4:
+      day = "Fri";
+      break;
+
+    case 5:
+      day = "Sat";
+      break;
+
+    case 6:
+      day = "Sun";
+      break;
+
+    default:
+      day = "";
+      break;
+  }
+
+  return day;
+};
+
+export const getAllWeekDays = (): string[] => {
+  return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 };

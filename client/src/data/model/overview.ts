@@ -1,5 +1,6 @@
 import { Result } from "../result";
 import { IProject } from "./project";
+import { ITask } from "./task";
 import { Timestamp } from "./types/timestamp";
 
 export interface IOverview {
@@ -7,6 +8,7 @@ export interface IOverview {
   to: Timestamp;
   tasksCompleted: number;
   totalTimeInSeconds: number;
+  tasksWithinTimeframe: ITask[];
 }
 
 export interface IOverviewProvider {
@@ -15,4 +17,9 @@ export interface IOverviewProvider {
   recents: Result<IProject[]>;
 
   refresh: () => void;
+}
+
+export interface IDateEntry {
+  date: string;
+  totalTimeSeconds: number;
 }

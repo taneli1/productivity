@@ -33,12 +33,18 @@ export class OverviewService implements IOverviewService {
     from: Timestamp,
     to: Timestamp
   ): Promise<IOverview> {
+    console.log(from, to);
     const completedTasks = (
       await Task.find({
         projectId: { $in: ids },
         completionTs: { $gt: from, $lt: to },
       }).lean()
     ).map((it) => it._id);
+
+    const tasksWithinTimeframe = await Task.find({
+      projectId: { $in: ids },
+      creationTs: { $gt: from, $lt: to },
+    }).lean();
 
     const entriesInTimeframe = await this.getEntriesInTimeframe(from, to);
     const overview: IOverview = {
@@ -48,6 +54,7 @@ export class OverviewService implements IOverviewService {
       totalTimeInSeconds: entriesInTimeframe
         .map((it) => it.timeInSeconds)
         .reduce((prev, curr) => prev + curr, 0),
+      tasksWithinTimeframe,
     };
 
     return overview;

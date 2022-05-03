@@ -7,6 +7,22 @@ export const queryTimeOverview = gql`
       to
       tasksCompleted
       totalTimeInSeconds
+      tasksWithinTimeframe {
+        _id
+        completionTs
+        projectId
+        name
+        state
+        labels {
+          name
+          hex
+        }
+        entries {
+          _id
+          createdAt
+          timeInSeconds
+        }
+      }
     }
   }
 `;
@@ -18,6 +34,22 @@ export const queryProjectOverview = gql`
       to
       tasksCompleted
       totalTimeInSeconds
+      tasksWithinTimeframe {
+        _id
+        completionTs
+        projectId
+        name
+        state
+        labels {
+          name
+          hex
+        }
+        entries {
+          _id
+          createdAt
+          timeInSeconds
+        }
+      }
     }
   }
 `;

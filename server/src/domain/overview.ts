@@ -1,3 +1,4 @@
+import { ITask } from "./task";
 import { Timestamp } from "./types/timestamp";
 
 export interface IOverview {
@@ -5,6 +6,7 @@ export interface IOverview {
   to: Timestamp;
   tasksCompleted: number;
   totalTimeInSeconds: number;
+  tasksWithinTimeframe: ITask[];
 }
 
 export interface IOverviewService {
