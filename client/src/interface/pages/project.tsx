@@ -68,6 +68,10 @@ export const Project: React.FunctionComponent = () => {
     navigate("/tasks/" + projectId);
   };
 
+  const navigateToOverview = () => {
+    navigate("/overview/" + projectId);
+  };
+
   const color = projectRes.data?.hex;
 
   return (
@@ -101,7 +105,7 @@ export const Project: React.FunctionComponent = () => {
                 project={projectRes.data}
               />
             )}
-            <SecondaryButton onClick={() => {}} text={str_overview}>
+            <SecondaryButton onClick={navigateToOverview} text={str_overview}>
               <AiOutlineAreaChart size="1.4em" color={color} />
             </SecondaryButton>
           </div>

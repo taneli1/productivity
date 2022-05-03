@@ -7,6 +7,7 @@ import { Home } from "../pages/home";
 import Login from "../pages/login";
 import { Overview } from "../pages/overview";
 import { Project } from "../pages/project";
+import { ProjectOverview } from "../pages/projectOverview";
 import { Projects } from "../pages/projects";
 import { TaskArchive } from "../pages/taskArchive";
 
@@ -22,7 +23,13 @@ export const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={wrapAuth(<App />)}>
             <Route path="home" element={wrapAuth(<Home />)} />
-            <Route path="overview" element={wrapAuth(<Overview />)} />
+            <Route path="overview">
+              <Route index element={wrapAuth(<Overview />)} />
+              <Route
+                path=":projectId"
+                element={wrapAuth(<ProjectOverview />)}
+              />
+            </Route>
             <Route path="projects">
               <Route index element={wrapAuth(<Projects />)} />
               <Route path=":projectId" element={wrapAuth(<Project />)} />

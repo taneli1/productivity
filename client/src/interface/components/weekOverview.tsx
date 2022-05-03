@@ -11,15 +11,17 @@ import { formatSeconds } from "../../utils/dateTimeUtils";
 import { Header } from "./header";
 
 interface WeekOverviewProps {
-  title: string;
+  title?: string;
   color: string;
   tasks: ITask[];
+  onOpenProject?: () => void;
 }
 
 export const WeekOverview: React.FunctionComponent<WeekOverviewProps> = ({
   title,
   tasks,
   color,
+  onOpenProject,
 }) => {
   const { weekData } = useWeekOverview(tasks);
   const totalTime = weekData
@@ -42,21 +44,25 @@ export const WeekOverview: React.FunctionComponent<WeekOverviewProps> = ({
   return (
     <div>
       <div className="d-flex">
-        <span
-          className="colored-circle mb-2"
-          style={{
-            background: `${color}`,
-            alignSelf: "center",
-            marginRight: 8,
-          }}
-        />
-        <Header size="sm" text={title} />
+        {title && (
+          <>
+            <span
+              className="colored-circle mb-2"
+              style={{
+                background: `${color}`,
+                alignSelf: "center",
+                marginRight: 8,
+              }}
+            />
+            <Header size="sm" text={title} />
+          </>
+        )}
       </div>
 
       <div className="d-flex p-2">
         <div id={id.current} style={{ height: "300px", width: "70%" }}></div>
         <div className="d-flex flex-wrap flex-column pt-3">
-          <div className="p-3">
+          <div className="p-1">
             <div className="d-flex pop align-items-center">
               <RiCheckDoubleFill size="42" color={color} />
               <h3 className="fw-bold m-0 p-0 ms-2">{completedCount}</h3>
@@ -64,7 +70,7 @@ export const WeekOverview: React.FunctionComponent<WeekOverviewProps> = ({
             <p className="pop mt-2">{str_completed_tasks}</p>
           </div>
 
-          <div className="p-3">
+          <div className="p-1">
             <div className="d-flex pop align-items-center ">
               <FiClock size="42" color={color} />
               <h3 className="fw-bold m-0 p-0 ms-2">
@@ -73,6 +79,17 @@ export const WeekOverview: React.FunctionComponent<WeekOverviewProps> = ({
             </div>
             <p className="pop mt-2">{str_task_time}</p>
           </div>
+          {onOpenProject && (
+            <div>
+              <button
+                onClick={onOpenProject}
+                className="btn btn-white"
+                style={{ background: color }}
+              >
+                <p className="p-0 m-0 text-white pop">Details</p>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
