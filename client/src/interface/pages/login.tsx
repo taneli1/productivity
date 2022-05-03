@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../data/hooks/useAuth";
+import { Result } from "../../data/result";
+import { ResultWrapper } from "../components/resultWrapper";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -51,49 +53,55 @@ const Login = () => {
       }}
       className="container card px-5 py-4"
     >
-      <h2 className="pb-5 text-center">
-        {isRegisterForm ? "Register" : "Login"}
-      </h2>
-      <div className="form-outline mb-2">
-        <input
-          value={username}
-          onChange={usernameChanged}
-          type="text"
-          id="form2Example1"
-          className="form-control"
-        />
-        <label className="form-label">Username</label>
-      </div>
+      <ResultWrapper result={user ?? Result.idle()}>
+        <h2 className="pb-5 text-center">
+          {isRegisterForm ? "Register" : "Login"}
+        </h2>
+        <div className="form-outline mb-2">
+          <input
+            value={username}
+            onChange={usernameChanged}
+            type="text"
+            id="form2Example1"
+            className="form-control"
+          />
+          <label className="form-label">Username</label>
+        </div>
 
-      <div className="form-outline mb-2">
-        <input
-          value={password}
-          onChange={passwordChanged}
-          type="password"
-          id="form2Example2"
-          className="form-control"
-        />
-        <label className="form-label">Password</label>
-      </div>
+        <div className="form-outline mb-2">
+          <input
+            value={password}
+            onChange={passwordChanged}
+            type="password"
+            id="form2Example2"
+            className="form-control"
+          />
+          <label className="form-label">Password</label>
+        </div>
 
-      <div className="row mb-2"></div>
+        <div className="row mb-2"></div>
 
-      <button
-        onClick={onSubmit}
-        type="button"
-        className="btn btn-primary btn-block mb-4"
-      >
-        {isRegisterForm ? "Create account" : "Login"}
-      </button>
+        <button
+          onClick={onSubmit}
+          type="button"
+          className="btn btn-primary btn-block mb-4"
+        >
+          {isRegisterForm ? "Create account" : "Login"}
+        </button>
 
-      <div className="text-center">
-        <p>
-          {isRegisterForm ? "Have an account?" : "No account?"}
-          <button className="btn btn-link" onClick={changeForm}>
-            {isRegisterForm ? "Login" : "Create one"}
-          </button>
-        </p>
-      </div>
+        <div className="text-center">
+          <p>
+            {isRegisterForm ? "Have an account?" : "No account?"}
+            <button className="btn btn-link" onClick={changeForm}>
+              {isRegisterForm ? "Login" : "Create one"}
+            </button>
+          </p>
+        </div>
+      </ResultWrapper>
+
+      {user?.isError() && (
+        <button className="btn btn-primary text-white">Try again</button>
+      )}
     </form>
   );
 };

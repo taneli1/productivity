@@ -1,5 +1,10 @@
 import React from "react";
-import { AiFillHome, AiOutlineAreaChart } from "react-icons/ai";
+import {
+  AiFillHome,
+  AiOutlineAreaChart,
+  AiOutlineLogout,
+  AiOutlineUser,
+} from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../data/hooks/useAuth";
 import { TimeTracker } from "./timeTracker";
@@ -16,7 +21,10 @@ export const NavBar: React.FunctionComponent<NavBarProps> = () => {
 
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-left align-items-center">
-      <p className="navbar-brand text-center">{auth.user?.data?.username}</p>
+      <p className="navbar-brand text-center header-title text-break">
+        <AiOutlineUser className="me-1" size="1.6em" color="white" />
+        {auth.user?.data?.username}
+      </p>
 
       <button
         className="navbar-toggler collapsed show mx-2"
@@ -33,7 +41,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = () => {
         className={`pt-3 navbar-collapse collapse ${expanded ? "show" : ""}`}
       >
         <TimeTracker />
-        <h1 className="navbar-brand pop pt-5">Navigation</h1>
+        <h1 className="navbar-brand pop pt-5 fw-bold">Navigation</h1>
         <ul className="navbar-nav ps-2">
           <li className="nav-item d-flex align-items-center">
             <AiFillHome size="1.4em" color="white" />
@@ -62,10 +70,15 @@ export const NavBar: React.FunctionComponent<NavBarProps> = () => {
             </Link>
           </li>
         </ul>
-        <button className="btn" onClick={auth.logout}>
-          logout
-        </button>
       </div>
+      <button
+        className="btn btn-primary pop fw-bold"
+        style={{ position: "absolute", bottom: 20, background: "white" }}
+        onClick={auth.logout}
+      >
+        <AiOutlineLogout size="1.4em" color="black" className="me-2" />
+        Logout
+      </button>
     </nav>
   );
 };
