@@ -1,7 +1,11 @@
-- Task editing, user could pass any project id they own to edit other tasks
+Bugs:
 
-  > Check the tasks project owner properly
+- Task editing, user could pass any project id they own to edit other tasks (even if not owning the project)
+- Prob other auth stuff
 
-- Use @ArgsType for inputs etc.
-- Cascading delete on tasks when project deleted
+Improvements:
+
+- Use @ArgsType for inputs etc. + validation
+- Better time handling (currently does not consider timezones etc.)
+- Cascading deletes on project deletion
 - Queries should be moved out of service, have them only call the functions
