@@ -14,14 +14,14 @@ export const str_input_project_hex_edit = "New color (optional):";
 export const str_project_created = "Successfully created project";
 export const str_project_state = "Project state";
 
-export const str_overview = "Open overview";
-export const str_manage = "Manage project";
+export const str_overview = "Overview";
+export const str_manage = "Manage";
 export const str_save_changes = "Save changes";
 export const str_delete_project = "Delete project";
 export const str_ok_delete = "Im sure";
 
 export const str_tasks_title = "Tasks";
-export const str_new_task = "New task";
+export const str_new_task = "New";
 export const str_no_tasks =
   "Project has no uncompleted tasks. Create one to get started.";
 

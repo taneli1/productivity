@@ -55,7 +55,7 @@ export const Overview = () => {
         <ResultWrapper result={weekly}>
           <WeekOverview
             title="All projects"
-            color="rgba(57, 157, 53, 1)"
+            color="#2a8354"
             tasks={weekly.data?.tasksWithinTimeframe ?? []}
           />
         </ResultWrapper>

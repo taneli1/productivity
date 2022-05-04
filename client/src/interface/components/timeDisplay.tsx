@@ -15,7 +15,7 @@ export const TimeDisplay: React.FunctionComponent<TimeDisplayProps> = ({
   color,
   tracking,
 }) => {
-  const c = color ?? "rgb(57, 157, 53)";
+  const c = color ?? "#2a8354";
   const border = color ? { border: `1px solid ${c}`, borderRadius: 6 } : {};
 
   return (

@@ -23,19 +23,19 @@ export const Home = () => {
     <div className="container p-3">
       <Header text={str_home} />
       <div
-        className="d-flex justify-content-between p-5"
+        className="d-flex justify-content-between py-5"
         style={{ maxWidth: "1000px", margin: "auto" }}
       >
         <ResultWrapper result={daily}>
           <SimpleOverView
-            color="rgba(57, 157, 53, 1)"
+            color="#2a8354"
             overview={daily.data!!}
             text="Today"
           />
         </ResultWrapper>
         <ResultWrapper result={weekly}>
           <SimpleOverView
-            color="rgba(57, 157, 53, 1)"
+            color="#2a8354"
             overview={weekly.data!!}
             text="Week"
           />

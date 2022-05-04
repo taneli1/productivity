@@ -38,5 +38,5 @@ export const TaskList: React.FunctionComponent<TaskListProps> = ({
     );
   }
 
-  return <div className="row justify-content-center px-5">{list}</div>;
+  return <div className="row justify-content-center mx-1">{list}</div>;
 };

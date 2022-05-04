@@ -21,7 +21,7 @@ export const TimeTracker: React.FunctionComponent<TimeTrackerProps> = ({}) => {
           <svg
             onClick={finishTracking}
             className="hover-op"
-            style={{ width: 48, height: 48, color: "rgb(57, 157, 53)" }}
+            style={{ width: 48, height: 48, color: "#2a8354" }}
             viewBox="0 0 24 24"
           >
             <path

@@ -3,7 +3,6 @@ import { RiCheckDoubleFill } from "react-icons/ri";
 import { str_completed_tasks, str_task_time } from "../../assets/strings";
 import { IOverview } from "../../data/model/overview";
 import { formatSeconds } from "../../utils/dateTimeUtils";
-import { Header } from "./header";
 interface SimpleOverviewParams {
   overview?: IOverview;
   color: string;
@@ -17,8 +16,7 @@ export const SimpleOverView: React.FunctionComponent<SimpleOverviewParams> = ({
 }) => {
   return (
     <div className="d-flex flex-column align-items-center">
-      <Header text={text} size="sm" />
-
+      <h4 className="header-title fst-italic">{text}</h4>
       <div className="d-flex flex-wrap pt-3">
         <div className="p-4">
           <div className="d-flex pop align-items-center">

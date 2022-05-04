@@ -13,10 +13,6 @@ export const queryTimeOverview = gql`
         projectId
         name
         state
-        labels {
-          name
-          hex
-        }
         entries {
           _id
           createdAt
@@ -40,10 +36,6 @@ export const queryProjectOverview = gql`
         projectId
         name
         state
-        labels {
-          name
-          hex
-        }
         entries {
           _id
           createdAt

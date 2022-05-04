@@ -114,7 +114,7 @@ export const Project: React.FunctionComponent = () => {
         {/* Tasks */}
         <div className="container pt-3">
           {/* Tasks header */}
-          <div className="p-3 d-flex justify-content-between align-items-center">
+          <div className="py-3 d-flex justify-content-between align-items-center">
             <Header size="sm" text={str_tasks_title} />
             <div className="d-flex justify-content-between align-items-center">
               <div className="pt-3">

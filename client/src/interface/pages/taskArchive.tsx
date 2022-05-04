@@ -73,7 +73,7 @@ export const TaskArchive = () => {
         break;
     }
 
-    return <h5 className="header-title py-4 centered">{text}</h5>;
+    return <h5 className="pop py-4 centered fst-italic text-muted">{text}</h5>;
   };
 
   return (

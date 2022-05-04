@@ -57,10 +57,6 @@ const useTracker = (onEntrySaved: () => void): ITracker => {
     return () => clearInterval(interval);
   }, [handleTrackingStopped, tracking]);
 
-  // useEffect(() => {
-  //   console.log("Current", current);
-  // }, [current]);
-
   const startTracking = (task: ITask) => {
     saveCurrent();
     setCurrent({

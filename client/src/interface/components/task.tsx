@@ -3,7 +3,6 @@ import { IoMdTrash } from "react-icons/io";
 import {
   MdArrowCircleUp,
   MdCheckCircle,
-  MdOutlineDragIndicator,
   MdPauseCircleFilled,
   MdPlayCircleFilled,
 } from "react-icons/md";
@@ -93,12 +92,6 @@ export const Task: React.FunctionComponent<TaskProps> = ({
         className="d-flex flex-fill py-1 align-items-center"
         style={{ minHeight: 32 }}
       >
-        {task.state === TaskState.TODO && (
-          <div className="hover-op pe-2">
-            <MdOutlineDragIndicator size="24" color="#6f6f6f" />
-          </div>
-        )}
-
         {editing ? (
           <input
             autoFocus
@@ -159,7 +152,7 @@ export const Task: React.FunctionComponent<TaskProps> = ({
                 onClick={toggleTracking}
                 className="hover-op"
               >
-                <MdPauseCircleFilled size="48" color="rgb(57, 157, 53)" />
+                <MdPauseCircleFilled size="48" color="#2a8354" />
               </div>
             ) : (
               <div
@@ -169,7 +162,7 @@ export const Task: React.FunctionComponent<TaskProps> = ({
               >
                 <MdPlayCircleFilled
                   size="48"
-                  color={tracking ? "#6f6f6f" : "rgb(57, 157, 53)"}
+                  color={tracking ? "#6f6f6f" : "#2a8354"}
                 />
               </div>
             )}

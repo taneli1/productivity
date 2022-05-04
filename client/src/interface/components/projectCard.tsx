@@ -16,7 +16,7 @@ export const ProjectCard: React.FunctionComponent<ProjectCardProps> = ({
 
   return (
     <div
-      className="hover-op container hover-shadow col-5 my-1 mx-1 shadow-sm d-flex align-items-center rounded justify-content-center"
+      className="hover-op hover-shadow my-1 mx-1 shadow-sm d-flex align-items-center rounded justify-content-center"
       onClick={() => onClick(project._id)}
       style={{
         border: `1px solid ${project.hex}`,
