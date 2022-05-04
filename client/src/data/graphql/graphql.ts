@@ -40,7 +40,6 @@ export const requestQuery = async <T>(
   try {
     const res = await client.request(query, variables);
     const data = res[`${queryName}`];
-    console.log(data);
     return Result.success<T>(data);
   } catch (error) {
     console.log("sendQuery, operation failed:", error);

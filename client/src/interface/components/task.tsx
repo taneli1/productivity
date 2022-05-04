@@ -123,17 +123,21 @@ export const Task: React.FunctionComponent<TaskProps> = ({
             <MdArrowCircleUp color={accentColor} size="32" />
           </div>
         ) : (
-          <div
-            style={{ width: 32, height: 32 }}
-            onClick={markAsComplete}
-            className="hover-op"
-          >
-            <MdCheckCircle size="32" color={accentColor} />
-          </div>
+          <>
+            {!thisTaskTracked && (
+              <div
+                style={{ width: 32, height: 32 }}
+                onClick={markAsComplete}
+                className="hover-op"
+              >
+                <MdCheckCircle size="32" color={accentColor} />
+              </div>
+            )}
+          </>
         )}
 
         {/* Delete btn */}
-        {task.state === TaskState.TODO && (
+        {task.state === TaskState.TODO && !thisTaskTracked && (
           <div
             style={{ width: 32, height: 32 }}
             onClick={() => deleteTask(task._id)}

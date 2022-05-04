@@ -17,7 +17,6 @@ export const useEntries = () => {
           timeInSeconds: data.timeInSeconds,
         },
       };
-
       const res = await requestQuery<IEntry>(
         querySaveEntry,
         "createEntry",

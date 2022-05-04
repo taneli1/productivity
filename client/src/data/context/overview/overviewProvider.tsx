@@ -8,6 +8,16 @@ import { IProject } from "../../model/project";
 import { Result } from "../../result";
 import OverviewContext from "./overviewContext";
 
+export const OverviewProvider: React.FunctionComponent = ({ children }) => {
+  const overview = useOverview();
+
+  return (
+    <OverviewContext.Provider value={overview}>
+      {children}
+    </OverviewContext.Provider>
+  );
+};
+
 const useOverview = () => {
   const [recents, setRecents] = useState<Result<IProject[]>>(Result.idle());
   const [daily, setDaily] = useState<Result<IOverview>>(Result.idle());
@@ -61,14 +71,4 @@ const useOverview = () => {
   }, [fetchOverviews, fetchRecents]);
 
   return { daily, weekly, refresh, recents };
-};
-
-export const OverviewProvider = ({ children }: any) => {
-  const overview = useOverview();
-
-  return (
-    <OverviewContext.Provider value={overview}>
-      {children}
-    </OverviewContext.Provider>
-  );
 };

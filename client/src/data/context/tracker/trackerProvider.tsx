@@ -1,15 +1,33 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useEntries } from "../../hooks/useEntries";
 import { ITask } from "../../model/task";
 import { ITracker, ITrackerEntry } from "../../model/timeTracker";
 import TrackerContext from "./trackerContext";
 
+interface TrackerProviderProps {
+  onEntrySaved: () => void;
+}
+
+export const TrackerProvider: React.FunctionComponent<TrackerProviderProps> = ({
+  children,
+  onEntrySaved,
+}) => {
+  const tracker = useTracker(onEntrySaved);
+
+  return (
+    <TrackerContext.Provider value={tracker}>
+      {children}
+    </TrackerContext.Provider>
+  );
+};
+
 const useTracker = (onEntrySaved: () => void): ITracker => {
   const { saveEntry } = useEntries();
   const [tracking, setTracking] = useState(false);
   const [current, setCurrent] = useState<ITrackerEntry | null>(null);
   const [entryToSave, setEntryToSave] = useState<ITrackerEntry | null>(null);
+  const savingEntryId = useRef("");
 
   /** Return the started interval */
   const handleTrackingStarted = (): any => {
@@ -74,16 +92,21 @@ const useTracker = (onEntrySaved: () => void): ITracker => {
   };
 
   useEffect(() => {
-    if (entryToSave === null || entryToSave.timeInSeconds === 0) {
+    if (
+      entryToSave === null ||
+      entryToSave.timeInSeconds === 0 ||
+      savingEntryId.current === entryToSave.tempId
+    ) {
       return;
     }
+    savingEntryId.current = entryToSave.tempId;
 
     saveEntry(entryToSave, (response) => {
       // TODO Retry logic on failures
-      console.log("Save callback response:", response);
       onEntrySaved();
       if (entryToSave.task._id === response.data?.taskId) {
         setEntryToSave(null);
+        savingEntryId.current = "";
       }
     });
   }, [entryToSave, onEntrySaved, saveEntry]);
@@ -97,14 +120,4 @@ const useTracker = (onEntrySaved: () => void): ITracker => {
   };
 
   return { tracking, current, startTracking, isTracking, finishTracking };
-};
-
-export const TrackerProvider = ({ children, onEntrySaved }: any) => {
-  const tracker = useTracker(onEntrySaved);
-
-  return (
-    <TrackerContext.Provider value={tracker}>
-      {children}
-    </TrackerContext.Provider>
-  );
 };

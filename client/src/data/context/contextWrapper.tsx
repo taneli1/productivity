@@ -1,7 +1,9 @@
 import React from "react";
 import { useOverview } from "../hooks/useOverview";
+import { useProject } from "../hooks/useProject";
 import { AuthProvider } from "./auth/authProvider";
 import { OverviewProvider } from "./overview/overviewProvider";
+import { ProjectProvider } from "./project/projectProvider";
 import { TrackerProvider } from "./tracker/trackerProvider";
 
 /**
@@ -11,19 +13,29 @@ export const ContextWrapper: React.FunctionComponent = ({ children }) => {
   return (
     <AuthProvider>
       <OverviewProvider>
-        <LinkTrackerToOverview>{children}</LinkTrackerToOverview>
+        <ProjectProvider>
+          <LinkRefreshFunctionality>{children}</LinkRefreshFunctionality>
+        </ProjectProvider>
       </OverviewProvider>
     </AuthProvider>
   );
 };
 
 /**
- * A quick way to link the refresh function from
- * overview to tracker. Done so that the overview gets the latest
- * data after time tracker entry has been saved. (Could be done better, no time for now)
+ * Scuffed way to keep data updated (+ expensive, since we are re fetching all of the data..).
+ * Initial implementation for hooks could not keep the data always up to date on UI.
+ * Would need to write whole state management again to make better, but no time for that now.
  */
-const LinkTrackerToOverview: React.FunctionComponent = ({ children }) => {
-  const { refresh } = useOverview();
+const LinkRefreshFunctionality: React.FunctionComponent = ({ children }) => {
+  const { refresh: refreshOverviewData } = useOverview();
+  const { refresh: refreshProjectData } = useProject();
 
-  return <TrackerProvider onEntrySaved={refresh}>{children}</TrackerProvider>;
+  const keepUpdated = () => {
+    refreshOverviewData();
+    refreshProjectData();
+  };
+
+  return (
+    <TrackerProvider onEntrySaved={keepUpdated}>{children}</TrackerProvider>
+  );
 };
