@@ -31,8 +31,8 @@ for each project.
 
 - mutation {
   registerUser(credentials: {
-  username: "_",
-  password: "_"
+  username: "@",
+  password: "@"
   }) {
   \_id
   username
@@ -41,8 +41,8 @@ for each project.
 
 - query {
   login(credentials: {
-  username: "_",
-  password: "_"
+  username: "@",
+  password: "@"
   }) {
   \_id
   username
