@@ -38,14 +38,22 @@ export const NavBar: React.FunctionComponent<NavBarProps> = () => {
       </button>
 
       <div
-        className={`pt-3 navbar-collapse collapse ${expanded ? "show" : ""}`}
+        className={`bg-dark flex-column pt-3 navbar-collapse collapse ${
+          expanded ? "show d-flex" : ""
+        }`}
       >
         <TimeTracker />
         <h1 className="navbar-brand pop pt-5 fw-bold">Navigation</h1>
         <ul className="navbar-nav ps-2">
           <li className="nav-item d-flex align-items-center">
             <AiFillHome size="1.4em" color="white" />
-            <Link className="nav-link" to="/home">
+            <Link
+              onClick={() => {
+                setExpanded(false);
+              }}
+              className="nav-link ps-2"
+              to="/home"
+            >
               <p className="m-0 pop">Home</p>
             </Link>
           </li>
@@ -59,13 +67,25 @@ export const NavBar: React.FunctionComponent<NavBarProps> = () => {
                 d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
               />
             </svg>
-            <Link className="nav-link" to="/projects">
+            <Link
+              onClick={() => {
+                setExpanded(false);
+              }}
+              className="nav-link ps-2"
+              to="/projects"
+            >
               <p className="m-0 pop">Projects</p>
             </Link>
           </li>
           <li className="nav-item d-flex align-items-center">
             <AiOutlineAreaChart size="1.4em" color="white" />
-            <Link className="nav-link" to="/overview">
+            <Link
+              onClick={() => {
+                setExpanded(false);
+              }}
+              className="nav-link ps-2"
+              to="/overview"
+            >
               <p className="m-0 pop">Overview</p>
             </Link>
           </li>
