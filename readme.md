@@ -37,7 +37,7 @@ for each project.
   \_id
   username
   creationDate
-  }
+  }}
 
 - query {
   login(credentials: {
@@ -48,6 +48,59 @@ for each project.
   username
   creationDate
   token
+  }}
+
+#### #Projects
+
+Create a project
+
+- mutation {
+  createProject(data: {
+  name: "ProjectName",
+  hex: "#2c2c2c"
+  }){
+  \_id
+  userId
+  name
+  hex
+  state
+  creationDate
+  tasks {
+  \_id
+  }
+  }}
+
+Get user projects
+
+- query {
+  projects {
+  \_id
+  name
+  state
+  tasks {
+  \_id
+  }
+  }
+  }
+
+Edit project
+
+- mutation {
+  editProject(data: {
+  projectId: "@",
+  hex: "#ad24dd",
+  name: "Edit name",
+  state: "ONGOING"
+  }) {
+  \_id
+  }
+  }
+
+Get recently worked on projects
+
+- query {
+  getRecents(limit: 2) {
+  \_id
   }
   }
 
