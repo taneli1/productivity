@@ -29,7 +29,7 @@ for each project.
 
 ### Accounts
 
-- Register
+- Register |
   mutation {
   registerUser(credentials: {
   username: "@",
@@ -41,7 +41,7 @@ for each project.
   }
   }
 
-- Login
+- Login |
   query {
   login(credentials: {
   username: "@",
@@ -56,7 +56,7 @@ for each project.
 
 ### Projects
 
-- Create a project
+- Create a project |
   mutation {
   createProject(data: {
   name: "ProjectName",
@@ -74,7 +74,7 @@ for each project.
   }
   }
 
-- Get user projects
+- Get user projects |
   query {
   projects {
   \_id
@@ -86,10 +86,10 @@ for each project.
   }
   }
 
-- Get project
+- Get project |
   query { project(id: "@") {\_id}}
 
-- Edit project
+- Edit project |
   mutation {
   editProject(data: {
   projectId: "@",
@@ -101,19 +101,19 @@ for each project.
   }
   }
 
-- Get recently worked on projects
+- Get recently worked on projects |
   query {
   getRecents(limit: 2) {
   \_id
   }
   }
 
-- Delete project
+- Delete project |
   mutation { deleteProject(id: "@") {\_id} }
 
 ### Tasks
 
-- Create task
+- Create task |
   mutation {
   createTask(data: {
   name: "NewTask",
@@ -131,7 +131,7 @@ for each project.
   }
   }
 
-- Edit task
+- Edit task |
   mutation {
   editTask(data: {
   projectId: "@",
@@ -143,14 +143,14 @@ for each project.
   }
   }
 
-- Project tasks
+- Project tasks |
   query {
   getProjectTasks(id: "@") {
   \_id
   }
   }
 
-- Delete task
+- Delete task |
   mutation {
   deleteTask(
   projectId: "123",
@@ -161,7 +161,7 @@ for each project.
 
 ### Time entries
 
-- Create entry
+- Create entry |
   mutation {
   createEntry(data: {
   taskId: "@",
@@ -175,14 +175,14 @@ for each project.
   }
   }
 
-- Get task entries
+- Get task entries |
   query {
   getTaskEntries(id: "@") { \_id }
   }
 
 ### Overviews
 
-- Total: for a custom time frame
+- Total: for a custom time frame |
   query {
   getTimeframeOverview(
   from: 0,
@@ -198,7 +198,7 @@ for each project.
   }
   }
 
-- Project: for a custom time frame
+- Project: for a custom time frame |
   query {
   getProjectOverview(
   from: 0,
