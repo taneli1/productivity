@@ -27,82 +27,86 @@ for each project.
 
 ### Server queries/mutations
 
-#### #Accounts
+#### Accounts
 
-- mutation {
-  registerUser(credentials: {
-  username: "@",
-  password: "@"
-  }) {
-  \_id
-  username
-  creationDate
-  }}
+- Register
 
-- query {
-  login(credentials: {
-  username: "@",
-  password: "@"
-  }) {
-  \_id
-  username
-  creationDate
-  token
-  }}
+mutation {
+registerUser(credentials: {
+username: "@",
+password: "@"
+}) {
+\_id
+username
+creationDate
+}}
 
-#### #Projects
+- Login
 
-Create a project
+query {
+login(credentials: {
+username: "@",
+password: "@"
+}) {
+\_id
+username
+creationDate
+token
+}}
 
-- mutation {
-  createProject(data: {
-  name: "ProjectName",
-  hex: "#2c2c2c"
-  }){
-  \_id
-  userId
-  name
-  hex
-  state
-  creationDate
-  tasks {
-  \_id
-  }
-  }}
+#### Projects
 
-Get user projects
+- Create a project
 
-- query {
-  projects {
-  \_id
-  name
-  state
-  tasks {
-  \_id
-  }
-  }
-  }
+mutation {
+createProject(data: {
+name: "ProjectName",
+hex: "#2c2c2c"
+}){
+\_id
+userId
+name
+hex
+state
+creationDate
+tasks {
+\_id
+}
+}}
 
-Edit project
+- Get user projects
 
-- mutation {
-  editProject(data: {
-  projectId: "@",
-  hex: "#ad24dd",
-  name: "Edit name",
-  state: "ONGOING"
-  }) {
-  \_id
-  }
-  }
+query {
+projects {
+\_id
+name
+state
+tasks {
+\_id
+}
+}
+}
 
-Get recently worked on projects
+- Edit project
 
-- query {
-  getRecents(limit: 2) {
-  \_id
-  }
-  }
+mutation {
+editProject(data: {
+projectId: "@",
+hex: "#ad24dd",
+name: "Edit name",
+state: "ONGOING"
+}) {
+\_id
+}
+}
+
+- Get recently worked on projects
+
+query {
+getRecents(limit: 2) {
+\_id
+}
+}
 
 ### A few notes to self if revisiting the project
 
