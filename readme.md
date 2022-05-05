@@ -25,6 +25,32 @@ for each project.
 - run npm i
 - run npm run start
 
+### Server queries/mutations
+
+#### Accounts
+
+- mutation {
+  registerUser(credentials: {
+  username: "**",
+  password: "**"
+  }) {
+  \_id
+  username
+  creationDate
+  }
+
+- query {
+  login(credentials: {
+  username: "**",
+  password: "**"
+  }) {
+  \_id
+  username
+  creationDate
+  token
+  }
+  }
+
 ### A few notes to self if revisiting the project
 
 - Contains unefficient solutions for alot of things. For example, state management in client app is

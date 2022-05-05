@@ -18,12 +18,6 @@ export class UserResolver {
     return await this.userService.login(ctx.req, ctx.res, credentials);
   }
 
-  @Authorized()
-  @Query((returns) => User)
-  async user(@Arg("id") id: string) {
-    return await this.userService.getUserWithId(id);
-  }
-
   @Mutation((returns) => User)
   async registerUser(
     @Arg("credentials") credentials: UserCredentials
