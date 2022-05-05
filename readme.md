@@ -1,6 +1,6 @@
 # Productivity
 
-This project is a web application which provides the user the possibility to
+Final project for a backend course, this project is a web application which provides the user the possibility to
 track the time they use on a given project.
 
 User can create projects, and add tasks to these projects. When they start working on
