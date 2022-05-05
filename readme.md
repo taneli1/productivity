@@ -25,7 +25,7 @@ for each project.
 - run npm i
 - run npm run start
 
-## Server queries/mutations
+## Examples of server queries/mutations
 
 ### Accounts
 
