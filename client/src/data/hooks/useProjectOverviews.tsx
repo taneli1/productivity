@@ -4,12 +4,37 @@ import {
   getWeekDay,
   minusHours,
 } from "../../utils/dateTimeUtils";
-import { requestQuery } from "../graphql/graphql";
+import { requestQuery, stateQueryRequest } from "../graphql/graphql";
 import { queryProjectOverview } from "../graphql/query/overviewQuery";
 import { IEntry } from "../model/entry";
 import { IDateEntry, IOverview } from "../model/overview";
 import { ITask } from "../model/task";
 import { Result } from "../result";
+
+export const useSingleProjectOverview = () => {
+  const [totalOverview, setTotalOverview] = useState<Result<IOverview>>(
+    Result.idle()
+  );
+
+  const getProjectTotalOverview = useCallback(async (id: string) => {
+    const today = new Date();
+
+    const params = {
+      projectId: id,
+      from: 0,
+      to: today.getTime(),
+    };
+
+    await stateQueryRequest<IOverview>(
+      setTotalOverview,
+      queryProjectOverview,
+      "getProjectOverview",
+      params
+    );
+  }, []);
+
+  return { totalOverview, getProjectTotalOverview };
+};
 
 /**
  * TODO Better implementation of this whole thing

@@ -137,8 +137,6 @@ const useProject = () => {
       projectId: projectRes?.data?._id,
       id,
     };
-    console.log(variables);
-
     const res = await requestQuery<ITask>(
       queryDeleteTask,
       "deleteProject",
@@ -167,6 +165,6 @@ const useProject = () => {
     editProject,
     deleteCurrentProject,
     deleteTask,
-    refresh
+    refresh,
   };
 };

@@ -1,19 +1,25 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProject } from "../../data/hooks/useProject";
+import { useSingleProjectOverview } from "../../data/hooks/useProjectOverviews";
 import { Header } from "../components/header";
 import { ResultWrapper } from "../components/resultWrapper";
+import { SimpleOverView } from "../components/simpleOverview";
 import { WeekOverview } from "../components/weekOverview";
 
 export const ProjectOverview = () => {
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const { totalOverview, getProjectTotalOverview } = useSingleProjectOverview();
   const { projectRes, getProject } = useProject();
   const color = projectRes.data?.hex ?? "#000000";
 
   useEffect(() => {
-    if (projectId) getProject(projectId);
-  }, [getProject, projectId]);
+    if (projectId) {
+      getProject(projectId);
+      getProjectTotalOverview(projectId);
+    }
+  }, [getProject, getProjectTotalOverview, projectId]);
 
   const openProjectView = () => {
     navigate("/projects/" + projectId);
@@ -46,6 +52,14 @@ export const ProjectOverview = () => {
           <Header size="sm" text="Past week" />
           <WeekOverview color={color} tasks={projectRes.data?.tasks ?? []} />
         </div>
+
+        <ResultWrapper result={totalOverview}>
+          <SimpleOverView
+            overview={totalOverview?.data!!}
+            color={color}
+            text="Project lifetime"
+          />
+        </ResultWrapper>
       </ResultWrapper>
     </div>
   );
