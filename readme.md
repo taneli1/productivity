@@ -27,12 +27,12 @@ for each project.
 
 ### Server queries/mutations
 
-#### Accounts
+#### #Accounts
 
 - mutation {
   registerUser(credentials: {
-  username: "**",
-  password: "**"
+  username: "_",
+  password: "_"
   }) {
   \_id
   username
@@ -41,8 +41,8 @@ for each project.
 
 - query {
   login(credentials: {
-  username: "**",
-  password: "**"
+  username: "_",
+  password: "_"
   }) {
   \_id
   username
