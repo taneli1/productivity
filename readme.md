@@ -25,7 +25,7 @@ for each project.
 - run npm i
 - run npm run start
 
-### Server queries/mutations
+## Server queries/mutations
 
 ### Accounts
 
@@ -215,7 +215,7 @@ for each project.
   }
   }
 
-### A few notes to self if revisiting the project
+## A few notes to self if revisiting the project
 
 - Contains unefficient solutions for alot of things. For example, state management in client app is
   done with hooks, and most of them were scoped to pages. This lead to a few issues with the UI not
